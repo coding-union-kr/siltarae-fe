@@ -1,0 +1,23 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.addMissingImports": true // 자동으로 import를 추가해줌.
+  },
+  "eslint.validate": [
+    "javascript",
+    // "javascriptreact",
+    "typescript",
+    // "typescriptreact"
+  ],
+  // 빨간줄로 이제 에러를 빨간줄로 보여줌.
+	"eslint.enable": true,
+	// 파일을 저장할 때마다 포맷팅 실행
+	"editor.formatOnSave": true
+}
