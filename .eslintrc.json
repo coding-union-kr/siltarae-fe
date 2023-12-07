@@ -13,6 +13,12 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "react/jsx-props-no-spreading": "off"
+    // jsx 에서 props 를 사용할 때 spread 연산자를 사용할 수 있도록 해줌.
+    "react/jsx-props-no-spreading": "off",
+    // 최상단에 require 를 호출하지 않아도 사용할 수 있게 해줌.
+    "global-require": "off",
+    // package.json에 설치되지않은 외부 모듈 패키지를 사용할 수 있게 해줌.
+    // https://github.com/import-js/eslint-plugin-import/blob/v2.29.0/docs/rules/no-extraneous-dependencies.md
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   }
 }
