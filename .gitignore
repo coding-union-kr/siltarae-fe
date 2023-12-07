@@ -37,7 +37,6 @@ next-env.d.ts
 
 # Zero-install
 # 일단 pnp 파일 경로 충돌 문제로 보류
-.pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
