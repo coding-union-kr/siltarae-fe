@@ -1,15 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base {
-  @font-face {
-    font-family: "Pretendard-Regular";
-    src:
-      url("/path-to-your-font/Pretendard-Regular.woff2") format("woff2"),
-      url("/path-to-your-font/Pretendard-Regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-  }
+@font-face {
+  font-family: "Pretendard-Regular";
+  src:
+    url("/path-to-your-font/Pretendard-Regular.woff2") format("woff2"),
+    url("/path-to-your-font/Pretendard-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 
 html,

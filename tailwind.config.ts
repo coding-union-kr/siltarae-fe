@@ -12,7 +12,9 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
     },
-    fontFamily: { pretendard: ["Pretendard-Regular"] },
+    fontFamily: {
+      pretendard: ["Pretendard-Regular", "Helvetica", "Arial", "sans-serif"],
+    },
   },
   plugins: [require("daisyui")],
 };
