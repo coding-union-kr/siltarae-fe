@@ -6,7 +6,7 @@ export default function Document() {
     // 임의로 배경색을 지정해놨습니다.
     <Html lang="ko" className="h-full bg-white">
       <Head />
-      <body>
+      <body className="font-pretendard">
         <Main />
         <NextScript />
       </body>
