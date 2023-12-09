@@ -6,19 +6,17 @@ import React from "react";
 
 interface AvatarProps {
   size?: string;
-  authorName?: string;
 }
 
-function Avatar({ size = "w-24", authorName = "" }: AvatarProps) {
+function Avatar({ size = "w-24" }: AvatarProps) {
   return (
     <div className="flex items-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
         alt="Profile"
-        className={`avatar ${size} rounded-full`}
+        className={`avatar ${size} rounded-full shadow-md shadow-slate-500`}
       />
-      {authorName && <span className="ml-2">{authorName}</span>}
     </div>
   );
 }
