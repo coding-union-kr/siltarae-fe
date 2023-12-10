@@ -1,10 +1,10 @@
-import Avatar from "@/components/Avatar";
+import ProfileAvatar from "@/components/ProfileAvatar";
 import React from "react";
 
 export default function Home() {
   return (
     <main>
-      <Avatar />
+      <ProfileAvatar />
     </main>
   );
 }

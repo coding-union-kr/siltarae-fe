@@ -21,6 +21,10 @@
     // https://github.com/import-js/eslint-plugin-import/blob/v2.29.0/docs/rules/no-extraneous-dependencies.md
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     // 타입스크립트 내부에서 기본값 설정할 수 있음으로 defaultProps 불필요
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    // 접근성 관련 규칙: 모바일 환경이라 key event 불필요
+    "jsx-a11y/click-events-have-key-events": "off",
+    // 접근성 관련 규칙: 모바일 환경이라 정적요소에 관한 key event 불필요
+    "jsx-a11y/no-static-element-interactions": "off"
   }
 }
