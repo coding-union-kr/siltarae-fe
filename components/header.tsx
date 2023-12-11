@@ -9,7 +9,7 @@ export default function Header() {
       <div className="flex flex-row h-full justify-between items-center px-5">
         <div>
           <Link href="/">
-            {/* 로고는 아래에 넣고 지우세요.(예시: 사과로고) */}
+            {/* FIXME : 로고 확정되면 다음에 변경 */}
             <FontAwesomeIcon icon={faAppleWhole} size="2x" />
           </Link>
         </div>
