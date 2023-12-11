@@ -1,13 +1,10 @@
-import ProfileAvatar from "@/components/ProfileAvatar";
 import React from "react";
+import ContentPage from "../components/ContentPage";
 
 export default function Home() {
   return (
     <main>
-<<<<<<< HEAD
-=======
-      <ProfileAvatar />
->>>>>>> develop
+      <ContentPage />
     </main>
   );
 }
