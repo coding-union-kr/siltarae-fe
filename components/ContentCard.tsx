@@ -22,7 +22,11 @@ function ContentCard() {
         <Link href="/">댓글 17개 모두 보기</Link>
         <div>
           <span className="mr-2">42</span>
-          <FontAwesomeIcon icon={faHeart} size="lg" />
+          <FontAwesomeIcon
+            icon={faHeart}
+            size="lg"
+            className="cursor-pointer"
+          />
         </div>
       </section>
       <div />
