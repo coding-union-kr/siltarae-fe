@@ -32,11 +32,11 @@ function ProfileAvatar({
 
   return (
     <div
-      className="avatar relative"
+      className="avatar relative cursor-pointer"
       onClick={() => fileInputRef.current?.click()}
     >
       <div
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-500`}
+        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-[5px] border-white`}
       >
         <input
           type="file"
@@ -54,13 +54,13 @@ function ProfileAvatar({
           <FontAwesomeIcon
             icon={faUser}
             size={iconSize}
-            className="text-center w-full h-full mt-3"
+            className="text-center w-full h-full mt-1 text-[#9CC490] bg-white"
           />
         )}
       </div>
       <FontAwesomeIcon
         icon={faCamera}
-        className="absolute text-slate-700 bottom-1 right-0 cursor-pointer"
+        className="absolute text-slate-700 bottom-1 right-0 cursor-pointer "
       />
     </div>
   );
