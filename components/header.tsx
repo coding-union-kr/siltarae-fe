@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function Header() {
-  const [params, setParams] = useState(true);
-
   return (
-    <section className="flex flex-row bg-[#FDF8F3] h-[10vh] justify-between items-center px-5">
-      {params ? (
-        <div className="bg-gray-300 h-[4rem] w-[4rem]">Logo SVG</div>
-      ) : (
-        <div>뒤로가기</div>
-      )}
-      <h1>타이틀(지울거)</h1>
-      <div>메뉴바(지울거)</div>
+    <section className="fixed bg-[#FDF8F3]/50 backdrop-blur-md h-[8vh] w-full border-b-amber-950 border-b border-b-gray-300">
+      <div className="flex flex-row h-full justify-between items-center px-5">
+        <div>
+          <Link href="/">
+            {/* 로고는 아래에 넣고 지우세요.(예시: 사과로고) */}
+            <FontAwesomeIcon icon={faAppleWhole} size="2x" />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }
