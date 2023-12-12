@@ -3,8 +3,8 @@ import Avatar from "./Avatar";
 
 function CommentInput() {
   return (
-    <div className="flex items-center border-t-[0.3px] border-[#A4A9B7]">
-      <div className="mx-6">
+    <div className="border-t-[0.3px] border-[#A4A9B7]">
+      <div className="flex items-center mx-6">
         <Avatar />
         <input
           type="text"
