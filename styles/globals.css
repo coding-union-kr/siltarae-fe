@@ -8,6 +8,28 @@
   }
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-[1px]  border-[1px];
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-[#E0E0E0] rounded-full w-[1px];
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-[#9CC490] rounded-full w-[1px];
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-x: scroll;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
 html,
 body {
   padding: 0;

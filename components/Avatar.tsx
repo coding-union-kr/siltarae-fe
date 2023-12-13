@@ -22,11 +22,7 @@ function Avatar({
   return (
     <div className="avatar ">
       <div
-<<<<<<< HEAD
         className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-4 border-white`}
-=======
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-500`}
->>>>>>> develop
       >
         {userImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -35,11 +31,7 @@ function Avatar({
           <FontAwesomeIcon
             icon={faUser}
             size={iconSize}
-<<<<<<< HEAD
             className="text-center w-full h-full mt-1 text-[#9CC490] bg-white"
-=======
-            className="text-center w-full h-full mt-3"
->>>>>>> develop
           />
         )}
       </div>
