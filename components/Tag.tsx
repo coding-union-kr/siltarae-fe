@@ -11,8 +11,8 @@ export default function Tag() {
     { id: 4, title: "피카피카피카츄" },
   ]);
 
-  const onClickDelete = () => {
-    console.log("삭제기능 추가해야 됩니다.");
+  const onClickDelete = (tag: { id: number; title: string }) => {
+    setTempTitle(tempTitle.filter((work) => work.id !== tag.id));
   };
 
   return (
@@ -22,11 +22,8 @@ export default function Tag() {
           key={tag.id}
           className="bg-[#9CC490] flex gap-2 items-center w-30 px-4 py-1 rounded-[20px] text-white text-sm font-semibold"
         >
-          <span>
-            {tag.id}
-            {tag.title}
-          </span>
-          <div onClick={onClickDelete} className="cursor-pointer">
+          <span>{tag.title}</span>
+          <div onClick={() => onClickDelete(tag)} className="cursor-pointer">
             <FontAwesomeIcon icon={faX} size="xs" />
           </div>
         </div>
