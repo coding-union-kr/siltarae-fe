@@ -6,6 +6,9 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}", // components 기본 경로 수정
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  daisyui: {
+    darkTheme: false,
+  },
   theme: {
     extend: {},
     fontFamily: {
