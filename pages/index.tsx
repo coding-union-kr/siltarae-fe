@@ -1,13 +1,10 @@
-import ProfileAvatar from "@/components/ProfileAvatar";
+import Tag from "@/components/Tag";
 import React from "react";
 
 export default function Home() {
   return (
     <main>
-<<<<<<< HEAD
-=======
-      <ProfileAvatar />
->>>>>>> develop
+      <Tag />
     </main>
   );
 }
