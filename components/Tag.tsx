@@ -11,9 +11,8 @@ export default function Tag() {
     { id: 4, title: "피카피카피카츄" },
   ]);
 
-  const onClickDelete = (tag: any) => {
+  const onClickDelete = (tag: { id: number; title: string }) => {
     setTempTitle(tempTitle.filter((work) => work.id !== tag.id));
-    console.log("삭제기능 추가해야 됩니다.");
   };
 
   return (
