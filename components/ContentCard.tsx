@@ -25,7 +25,7 @@ function ContentCard() {
           <FontAwesomeIcon
             icon={faHeart}
             size="lg"
-            className="cursor-pointer"
+            className="cursor-pointer text-[#F3685F]"
           />
         </div>
       </section>
