@@ -7,7 +7,7 @@ import Tag from "./Tag";
 
 function ContentPage() {
   return (
-    <article className="w-96 min-h-72 bg-white text-neutral-content p-5">
+    <article className="w-96 min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
         <Avatar />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">고라파덕</h3>
@@ -34,7 +34,7 @@ function ContentPage() {
         <FontAwesomeIcon
           icon={faHeart}
           size="lg"
-          className="cursor-pointer text-[#F3685F]"
+          className="cursor-pointer text-[#F3685F] ml-1"
         />
         <span className="ml-2 text-sm">42</span>
       </motion.button>
