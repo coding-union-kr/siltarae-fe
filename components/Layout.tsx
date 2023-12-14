@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
-    <div id="container" className="h-screen flex justify-center">
+    <div id="container" className="h-full flex justify-center">
       <Header />
       <div className="mt-[8vh] mb-[10vh] w-[500px] max-w-[500px]">
         {children}
