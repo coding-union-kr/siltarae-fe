@@ -7,31 +7,22 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 // 아직 API 서버가 없으므로 임의적으로 img 태그를 사용하겠습니다!
 // https://nextjs.org/docs/messages/next-image-unconfigured-host
 
-type IconSize = "1x" | "2x" | "3x" | "4x" | "5x" | "6x";
 interface AvatarProps {
-  avatarSize?: string;
   userImageUrl?: string;
-  iconSize?: IconSize;
 }
 
-function Avatar({
-  avatarSize = "w-11",
-  userImageUrl,
-  iconSize = "2x",
-}: AvatarProps) {
+function Avatar({ userImageUrl }: AvatarProps) {
   return (
     <div className="avatar ">
-      <div
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-4 border-white bg-white`}
-      >
+      <div className="flex items-center justify-center xs:w-11 w-9 rounded-full shadow-md shadow-slate-300 border-solid xs:border-4 border-[3px] border-white bg-white">
         {userImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={userImageUrl} alt="Profile" />
         ) : (
           <FontAwesomeIcon
             icon={faUser}
-            size={iconSize}
-            className="text-center w-full h-full mt-1 text-[#9CC490] bg-white"
+            size="2x"
+            className="text-center w-full h-full xs:mt-1 text-[#9CC490] bg-white"
           />
         )}
       </div>
