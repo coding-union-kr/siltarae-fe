@@ -6,12 +6,12 @@ import Avatar from "./Avatar";
 
 function ContentCard() {
   return (
-    <article className="card w-96 h-64 bg-white text-neutral-content shadow-md shadow-slate-300 p-5 my-3">
+    <article className="card w-[28rem] h-64 bg-white text-neutral-content shadow-md shadow-slate-300 p-5 my-3">
       <section className="flex items-center mb-3">
         <Avatar />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">고라파덕</h3>
       </section>
-      <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify">
+      <p className="text-base text-[#5C4F4D] leading-normal break-keep">
         로렘 입숨은 출판이나 그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃
         같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 채우기
         텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각
