@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <section className="fixed bg-[#FDF8F3]/50 backdrop-blur-md h-[8vh] w-full border-b border-b-gray-300">
+    <section className="fixed top-0 bg-[#FDF8F3]/50 backdrop-blur-md h-[8vh] w-[500px] border-b border-b-gray-300">
       <div className="flex flex-row h-full justify-between items-center px-5">
         <div>
           <Link href="/">

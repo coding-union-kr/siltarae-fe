@@ -3,13 +3,13 @@ import Avatar from "./Avatar";
 
 function CommentInput() {
   return (
-    <div className="border-t-[0.3px] border-[#A4A9B7]">
-      <div className="flex items-center mx-6">
+    <div className="fixed bottom-0 border-t-[0.1px] border-[#DFE2E9] py-5 px-5 w-full max-w-[500px] backdrop-blur-md">
+      <div className="flex items-center">
         <Avatar />
         <input
           type="text"
           placeholder="댓글을 입력해주세요."
-          className="ml-3 input input-bordered border-2 w-full max-w-xs border-[#9CC490] focus:border-[#9CC490]  rounded-2xl"
+          className="flex-1 ml-3 input input-bordered border-2 border-[#9CC490] focus:border-[#9CC490] rounded-2xl"
         />
       </div>
     </div>
