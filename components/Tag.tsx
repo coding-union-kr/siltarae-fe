@@ -16,7 +16,7 @@ export default function Tag() {
   };
 
   return (
-    <div className="flex flex-row flex-nowrap gap-3">
+    <div className="flex flex-row flex-wrap gap-2 mt-2">
       {tempTitle.map((tag) => (
         <div
           key={tag.id}

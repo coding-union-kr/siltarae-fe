@@ -5,12 +5,12 @@ import NavBar from "./NavBar";
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
-    <div id="container" className="h-screen flex justify-center mb-[8vh] mt-[]">
-      <div className="w-[500px] max-w-[500px] ">
-        <Header />
+    <div id="container" className="h-screen flex justify-center">
+      <Header />
+      <div className="mt-[8vh] mb-[10vh] w-[500px] max-w-[500px]">
         {children}
-        <NavBar />
       </div>
+      <NavBar />
     </div>
   );
 }

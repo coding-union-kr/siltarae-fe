@@ -22,7 +22,7 @@ function Avatar({
   return (
     <div className="avatar ">
       <div
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-4 border-white`}
+        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-4 border-white bg-white`}
       >
         {userImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
