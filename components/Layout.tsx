@@ -7,7 +7,7 @@ function Layout(props: { children: React.ReactNode }) {
   return (
     <div id="container" className="h-full flex justify-center">
       <Header />
-      <div className="mt-[8vh] mb-[10vh] w-[500px] max-w-[500px]">
+      <div className="mt-[8vh] mb-[10vh] w-[500px] max-w-[500px] bg-[#FDF8F3]">
         {children}
       </div>
       <NavBar />
