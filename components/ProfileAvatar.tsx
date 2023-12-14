@@ -36,7 +36,7 @@ function ProfileAvatar({
       onClick={() => fileInputRef.current?.click()}
     >
       <div
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-[5px] border-white`}
+        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-[5px] border-white bg-white`}
       >
         <input
           type="file"

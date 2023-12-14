@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 
 function Comment() {
   return (
-    <div className="flex items-start">
+    <div className="flex flex-row gap-2 items-start p-5">
       <Avatar />
       <div className="ml-2">
         <h3 className="text-lg text-[#856E69] font-bold mb-2">고라파덕</h3>
