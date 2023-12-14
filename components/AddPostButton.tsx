@@ -7,7 +7,7 @@ function AddPostButton() {
   return (
     <Link
       href="/"
-      className="fixed translate-x-48 translate-y-32 block h-12 w-12 rounded-full bg-white shadow-md hover:scale-[1.1]"
+      className="fixed translate-x-48 translate-y-32 h-12 w-12  flex justify-center items-center rounded-full bg-white shadow-md hover:scale-[1.1]"
     >
       <FontAwesomeIcon icon={faPlus} size="xl" color="#9CC490" />
     </Link>
