@@ -9,7 +9,7 @@ import React from "react";
 
 export default function NavBar() {
   return (
-    <section className="fixed bottom-0 h-[10vh] w-full bg-white backdrop-blur-md">
+    <section className="fixed bottom-0 h-[10vh] w-[500px] bg-white backdrop-blur-md">
       <div className="h-full flex flex-row justify-evenly items-center">
         <Link href="/" className="flex flex-col items-center">
           <FontAwesomeIcon icon={faHouse} size="2x" />
