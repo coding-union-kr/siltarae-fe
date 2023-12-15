@@ -6,7 +6,7 @@ import Avatar from "./Avatar";
 
 function ContentCard() {
   return (
-    <article className="card w-96 h-64 bg-white text-neutral-content shadow-md shadow-slate-300 p-5">
+    <article className="card w-auto h-auto bg-white text-neutral-content shadow-md shadow-slate-300 p-5">
       <section className="flex items-center mb-3">
         <Avatar />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">고라파덕</h3>
