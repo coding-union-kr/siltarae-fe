@@ -71,7 +71,7 @@ const mistakeFeed = () => {
             selectSort === SORT_RECENT
               ? "text-primary"
               : "text-secondary xs:text-lg text-base"
-          } font-semibold`}
+          } font-semibold xs:text-lg text-base`}
           onClick={() => toggleSort(SORT_RECENT)}
         >
           최신순
