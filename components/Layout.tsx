@@ -5,15 +5,12 @@ import NavBar from "./NavBar";
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
-    <div
-      id="container"
-      className="h-fit min-h-screen mx-auto grid place-items-center overflow-x-hidden"
-    >
+    <div id="container" className="h-fit flex justify-center">
       <Header />
-      <div className="mt-[8vh] mb-[10vh] w-[500px] max-w-[500px] bg-[#FDF8F3]">
+      <div className="mt-[8vh] mb-[12vh] w-[500px] max-w-[500px]">
         {children}
-        <NavBar />
       </div>
+      <NavBar />
     </div>
   );
 }
