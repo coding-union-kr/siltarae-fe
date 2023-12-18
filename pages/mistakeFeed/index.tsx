@@ -54,16 +54,16 @@ const mistakeFeed = () => {
     <div className="flex justify-center items-center flex-col my-4 mb-4 relative">
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
-          sortType="인기순"
+          sortType={SORT_POPULAR}
           currentSort={selectSort}
           onToggleSort={toggleSort}
         />
         <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
-        {/* <SortButton
+        <SortButton
           sortType={SORT_RECENT}
           currentSort={selectSort}
           onToggleSort={toggleSort}
-        /> */}
+        />
       </div>
       {posts.map((post) => (
         <ContentCard

@@ -4,7 +4,7 @@ type SortType = "인기순" | "최신순";
 
 interface SortButtonProps {
   sortType: SortType;
-  currentSort: SortType;
+  currentSort: string;
   onToggleSort: (sort: SortType) => void;
 }
 
@@ -19,7 +19,7 @@ function SortButton({ sortType, currentSort, onToggleSort }: SortButtonProps) {
       } font-semibold xs:text-lg text-base`}
       onClick={() => onToggleSort(sortType)}
     >
-      {currentSort}
+      {sortType}
     </button>
   );
 }
