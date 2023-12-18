@@ -7,7 +7,7 @@ import Tag from "./Tag";
 
 function ContentPage() {
   return (
-    <article className="w-96 min-h-72 bg-white text-neutral-content px-5 py-8">
+    <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
         <Avatar />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">고라파덕</h3>
