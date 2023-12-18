@@ -7,7 +7,6 @@ import React, { useState } from "react";
 const mistakeFeed = () => {
   const SORT_POPULAR = "인기순";
   const SORT_RECENT = "최신순";
-
   const [selectSort, setSelectSort] = useState(SORT_POPULAR);
 
   const toggleSort = (sort: string) => {
