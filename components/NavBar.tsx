@@ -15,11 +15,11 @@ export default function NavBar() {
           <FontAwesomeIcon icon={faHouse} size="2x" />
           <p className="text-xs">홈</p>
         </Link>
-        <Link href="/" className="flex flex-col items-center">
+        <Link href="/personalMistake" className="flex flex-col items-center">
           <FontAwesomeIcon icon={faRectangleList} size="2x" />
           <p className="text-xs">나의실수</p>
         </Link>
-        <Link href="/" className="flex flex-col items-center">
+        <Link href="/myPage" className="flex flex-col items-center">
           <FontAwesomeIcon icon={faBars} size="2x" />
           <p className="text-xs">마이페이지</p>
         </Link>
