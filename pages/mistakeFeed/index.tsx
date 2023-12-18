@@ -1,15 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // import AddPostButton from "@/components/AddPostButton";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
+import SortButton from "@/components/SortButton";
 import React, { useState } from "react";
 
 const mistakeFeed = () => {
   const SORT_POPULAR = "인기순";
   const SORT_RECENT = "최신순";
-  // 리액트는 무조건 컴포넌트 함수 내에서 호출할 수 있는데
-  // 파일명이 파스칼케이스가 아니라서 컴포넌트라고 인식을 안한다고 하네요 ㅠ ㅋ
-  // https://legacy.reactjs.org/docs/hooks-rules.html
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [selectSort, setSelectSort] = useState(SORT_POPULAR);
 
   const toggleSort = (sort: string) => {
@@ -55,27 +53,17 @@ const mistakeFeed = () => {
   return (
     <div className="flex justify-center items-center flex-col my-4 mb-4 relative">
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
-        <button
-          type="button"
-          className={`${
-            selectSort === SORT_POPULAR ? "text-primary" : "text-secondary"
-          } font-semibold xs:text-lg text-base`}
-          onClick={() => toggleSort(SORT_POPULAR)}
-        >
-          인기순
-        </button>
+        <SortButton
+          sortType="인기순"
+          currentSort={selectSort}
+          onToggleSort={toggleSort}
+        />
         <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
-        <button
-          type="button"
-          className={`${
-            selectSort === SORT_RECENT
-              ? "text-primary"
-              : "text-secondary xs:text-lg text-base"
-          } font-semibold xs:text-lg text-base`}
-          onClick={() => toggleSort(SORT_RECENT)}
-        >
-          최신순
-        </button>
+        {/* <SortButton
+          sortType={SORT_RECENT}
+          currentSort={selectSort}
+          onToggleSort={toggleSort}
+        /> */}
       </div>
       {posts.map((post) => (
         <ContentCard
