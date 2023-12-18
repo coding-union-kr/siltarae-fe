@@ -5,12 +5,14 @@ import React from "react";
 
 function AddPostButton() {
   return (
-    <Link
-      href="/"
-      className="fixed translate-x-48 translate-y-32 h-12 w-12  flex justify-center items-center rounded-full bg-white shadow-md hover:scale-[1.1]"
-    >
-      <FontAwesomeIcon icon={faPlus} size="xl" color="#9CC490" />
-    </Link>
+    <div className="fixed bottom-16 w-full max-w-[500px]">
+      <Link
+        href="/"
+        className="absolute bottom-5 right-5 h-[3.5rem] w-[3.5rem] flex justify-center items-center rounded-full bg-[#9CC491] shadow-md hover:scale-[1.1]"
+      >
+        <FontAwesomeIcon icon={faPlus} size="2xl" color="white" />
+      </Link>
+    </div>
   );
 }
 
