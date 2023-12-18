@@ -7,7 +7,7 @@ import React from "react";
 
 export default function DetailedMistakeFeed() {
   return (
-    <div className="w-full h-[200vh]">
+    <div className="w-full h-auto bg-white pb-16">
       <section className="flex flex-row px-5 py-5 justify-between border-b-[0.3px] border-[#DFE2E9]">
         <div>
           <FontAwesomeIcon

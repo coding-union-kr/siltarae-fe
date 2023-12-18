@@ -73,6 +73,7 @@ const mistakeFeed = () => {
           like={post.like}
         />
       ))}
+      {/* <SocialLoginModal /> */}
       <AddPostButton />
     </div>
   );
