@@ -23,7 +23,7 @@ const myPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col xs:mt-10 mt-3">
+    <div className="flex flex-col justify-center items-center h-full xs:my-10 my-5">
       <ProfileAvatar />
       <button
         type="button"
@@ -52,7 +52,7 @@ const myPage = () => {
           </>
         )}
       </button>
-      <section className="flex justify-center items-center flex-col gap-4 mt-5">
+      <section className="flex justify-center items-center h-full flex-col gap-4 my-5">
         <button className="btn xs:w-96 w-80 xs:h-16 text-lg" type="button">
           로그아웃
         </button>
