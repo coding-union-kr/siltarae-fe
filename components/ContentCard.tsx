@@ -18,7 +18,7 @@ function ContentCard({
   like = 0,
 }: ContentCardProps) {
   return (
-    <article className="card w-[20rem] xs:w-[28rem] bg-white text-neutral-content shadow-md shadow-slate-300 xs:p-6 p-5 my-3">
+    <article className="card w-auto h-auto bg-white text-neutral-content shadow-md shadow-slate-300 p-5">
       <section className="flex items-center mb-3">
         <Avatar />
         <h3 className="ml-2 text-base xs:text-lg text-[#856E69] font-bold">
