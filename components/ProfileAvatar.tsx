@@ -1,11 +1,7 @@
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCamera } from "@fortawesome/free-solid-svg-icons";
-
-// import Image from "next/image";
-// 더 나은 이미지 최적화를 위해서 next에서 제공하는 Image 태그를 사용하는 것이 옳으나,
-// 아직 API 서버가 없으므로 임의적으로 img 태그를 사용하겠습니다!
-// https://nextjs.org/docs/messages/next-image-unconfigured-host
+import Image from "next/image";
 
 interface AvatarProps {
   userImageUrl?: string;
@@ -39,8 +35,7 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
           onChange={handleImageChange}
         />
         {userImageUrlState ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={userImageUrlState} alt="Profile" />
+          <Image src={userImageUrlState} alt="Profile" />
         ) : (
           <FontAwesomeIcon
             icon={faUser}
