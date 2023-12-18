@@ -9,6 +9,7 @@ const config: Config = {
   ],
   daisyui: {
     darkTheme: false,
+    themes: ["cupcake"],
   },
   theme: {
     extend: {
