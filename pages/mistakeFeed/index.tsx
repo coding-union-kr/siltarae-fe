@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+// import AddPostButton from "@/components/AddPostButton";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
-// import SocialLoginModal from "@/components/SocialLoginModal";
+import SortButton from "@/components/SortButton";
 import React, { useState } from "react";
 
 const mistakeFeed = () => {
@@ -52,27 +53,17 @@ const mistakeFeed = () => {
   return (
     <div className="flex justify-center items-center flex-col my-4 mb-4 relative">
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
-        <button
-          type="button"
-          className={`${
-            selectSort === SORT_POPULAR ? "text-primary" : "text-secondary"
-          } font-semibold xs:text-lg text-base`}
-          onClick={() => toggleSort(SORT_POPULAR)}
-        >
-          인기순
-        </button>
+        <SortButton
+          sortType={SORT_POPULAR}
+          currentSort={selectSort}
+          onToggleSort={toggleSort}
+        />
         <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
-        <button
-          type="button"
-          className={`${
-            selectSort === SORT_RECENT
-              ? "text-primary"
-              : "text-secondary xs:text-lg text-base"
-          } font-semibold xs:text-lg text-base`}
-          onClick={() => toggleSort(SORT_RECENT)}
-        >
-          최신순
-        </button>
+        <SortButton
+          sortType={SORT_RECENT}
+          currentSort={selectSort}
+          onToggleSort={toggleSort}
+        />
       </div>
       {posts.map((post) => (
         <ContentCard
