@@ -9,9 +9,19 @@ const config: Config = {
   ],
   daisyui: {
     darkTheme: false,
+    themes: ["cupcake"],
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#9CC490",
+        secondary: "#856E69",
+      },
+      screens: {
+        xs: "400px",
+        sm: "300px",
+      },
+    },
     fontFamily: {
       pretendard: ["Pretendard-Regular", "Helvetica", "Arial", "sans-serif"],
     },

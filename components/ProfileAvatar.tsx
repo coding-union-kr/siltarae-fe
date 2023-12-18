@@ -7,18 +7,11 @@ import { faUser, faCamera } from "@fortawesome/free-solid-svg-icons";
 // 아직 API 서버가 없으므로 임의적으로 img 태그를 사용하겠습니다!
 // https://nextjs.org/docs/messages/next-image-unconfigured-host
 
-type IconSize = "1x" | "2x" | "3x" | "4x" | "5x" | "6x";
 interface AvatarProps {
-  avatarSize?: string;
   userImageUrl?: string;
-  iconSize?: IconSize;
 }
 
-function ProfileAvatar({
-  avatarSize = "w-24",
-  iconSize = "5x",
-  userImageUrl,
-}: AvatarProps) {
+function ProfileAvatar({ userImageUrl }: AvatarProps) {
   const [userImageUrlState, setUserImageUrlState] = useState<
     string | undefined
   >(userImageUrl);
@@ -35,9 +28,7 @@ function ProfileAvatar({
       className="avatar relative cursor-pointer"
       onClick={() => fileInputRef.current?.click()}
     >
-      <div
-        className={`flex items-center justify-center ${avatarSize} rounded-full shadow-md shadow-slate-300 border-solid border-[5px] border-white bg-white`}
-      >
+      <div className="flex items-center justify-center w-24 rounded-full shadow-md shadow-slate-300 border-solid border-[5px] border-white bg-white">
         <input
           type="file"
           id="avatar"
@@ -53,7 +44,7 @@ function ProfileAvatar({
         ) : (
           <FontAwesomeIcon
             icon={faUser}
-            size={iconSize}
+            size="5x"
             className="text-center w-full h-full mt-1 text-[#9CC490] bg-white"
           />
         )}
