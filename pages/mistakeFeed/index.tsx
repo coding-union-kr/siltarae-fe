@@ -1,15 +1,13 @@
-// import AddPostButton from "@/components/AddPostButton";
+/* eslint-disable react-hooks/rules-of-hooks */
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
+// import SocialLoginModal from "@/components/SocialLoginModal";
 import React, { useState } from "react";
 
 const mistakeFeed = () => {
   const SORT_POPULAR = "인기순";
   const SORT_RECENT = "최신순";
-  // 리액트는 무조건 컴포넌트 함수 내에서 호출할 수 있는데
-  // 파일명이 파스칼케이스가 아니라서 컴포넌트라고 인식을 안한다고 하네요 ㅠ ㅋ
-  // https://legacy.reactjs.org/docs/hooks-rules.html
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   const [selectSort, setSelectSort] = useState(SORT_POPULAR);
 
   const toggleSort = (sort: string) => {
@@ -85,6 +83,7 @@ const mistakeFeed = () => {
           like={post.like}
         />
       ))}
+      {/* <SocialLoginModal /> */}
       <AddPostButton />
     </div>
   );
