@@ -30,7 +30,7 @@ function ContentCard({
       </p>
       <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">
         {/* FIXME:  href 나중에 변경 */}
-        <Link href="/">댓글 {comments} 개</Link>
+        <Link href="/detailedMistakeFeed">댓글 {comments} 개</Link>
         <div>
           <span className="mr-2">{like}</span>
           <FontAwesomeIcon
