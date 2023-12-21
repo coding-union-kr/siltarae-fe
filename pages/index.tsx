@@ -2,17 +2,24 @@
 // import AddPostButton from "@/components/AddPostButton";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
+import RegisterModal from "@/components/RegisterModal";
 import SortButton from "@/components/SortButton";
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 
 const mistakeFeed = () => {
   const SORT_POPULAR = "인기순";
   const SORT_RECENT = "최신순";
   const [selectSort, setSelectSort] = useState(SORT_POPULAR);
+  const [view, setView] = useState(false);
 
   const toggleSort = (sort: string) => {
     setSelectSort(sort);
   };
+
+  const toggleRegisterModal = () => {
+    setView((prev) => !prev);
+ };
 
   const posts = [
     {
@@ -74,7 +81,10 @@ const mistakeFeed = () => {
         />
       ))}
       {/* <SocialLoginModal /> */}
-      <AddPostButton />
+      <AddPostButton toggleModal={toggleRegisterModal} />
+      <AnimatePresence>
+        {view ? <RegisterModal toggleModal={toggleRegisterModal} /> : null}
+      </AnimatePresence>
     </div>
   );
 };
