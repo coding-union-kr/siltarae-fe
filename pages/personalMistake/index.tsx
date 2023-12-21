@@ -1,9 +1,14 @@
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
+import RegisterModal from "@/components/RegisterModal";
 import Tag from "@/components/Tag";
-import React from "react";
+import React, { useState } from "react";
 
 export default function PersonalMistake() {
+  const [view, setView] = useState(false);
+  const toggleRegisterModal = () => {
+    setView((prev) => !prev);
+  };
   return (
     <div className="bg-[#FDF8F3] px-5 pb-5">
       <div className="flex flex-col gap-5">
@@ -33,7 +38,8 @@ export default function PersonalMistake() {
           like={50}
         />
       </div>
-      <AddPostButton />
+      <AddPostButton toggleModal={toggleRegisterModal} />
+      {view ? <RegisterModal toggleModal={toggleRegisterModal} /> : null}
     </div>
   );
 }
