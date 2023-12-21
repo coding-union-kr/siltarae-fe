@@ -10,7 +10,7 @@ interface RegisterModalProps {
 
 export default function RegisterModal({ toggleModal }: RegisterModalProps) {
   // 버블링 방지 함수 어떻게 써야하지...?
-  const WrapperClick = (e: MouseEvent) => {
+  const WrapperClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
   };
   return (
@@ -27,6 +27,7 @@ export default function RegisterModal({ toggleModal }: RegisterModalProps) {
         animate={{ y: 0 }}
         transition={{ type: "tween" }}
         exit={{ y: 1000 }}
+        onClick={WrapperClick}
       >
         <div className="flex flex-col">
           <span className="text-xl font-semibold text-[#856E69]">
