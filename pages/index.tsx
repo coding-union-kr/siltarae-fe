@@ -16,9 +16,10 @@ const mistakeFeed = () => {
   const toggleSort = (sort: string) => {
     setSelectSort(sort);
   };
+
   const toggleRegisterModal = () => {
     setView((prev) => !prev);
-  };
+ };
 
   const posts = [
     {
