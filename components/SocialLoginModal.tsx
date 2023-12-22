@@ -12,7 +12,7 @@ function SocialLoginModal({ isModalOpen, onClose }: SocialLoginModalProps) {
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   // 코드를 전달받는 리다이렉트 웹페이지
   const googleRedirectUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-  const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=9210054985-pg16brdql4bni9r028inu8j6iu2u8m4l.apps.googleusercontent.com&redirect_uri=${googleRedirectUrl}&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=code`;
+  const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${googleRedirectUrl}&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=code`;
 
   const loginHandler = () => {
     // 구글 로그인 화면으로 이동 후 로딩화면으로 리다이렉트
