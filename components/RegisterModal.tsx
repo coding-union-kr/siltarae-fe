@@ -9,10 +9,11 @@ interface RegisterModalProps {
 }
 
 export default function RegisterModal({ toggleModal }: RegisterModalProps) {
-  // 버블링 방지 함수 어떻게 써야하지...?
-  const WrapperClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  // 버블링 방지 함수
+  const WrapperClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
+
   return (
     <motion.section
       className="fixed flex justify-center items-end top-0 left-0 right-0 mx-auto w-full h-full bg-black/50 z-50"

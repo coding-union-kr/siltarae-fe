@@ -3,6 +3,7 @@
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
 import RegisterModal from "@/components/RegisterModal";
+import SocialLoginModal from "@/components/SocialLoginModal";
 import SortButton from "@/components/SortButton";
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
@@ -19,7 +20,9 @@ const mistakeFeed = () => {
 
   const toggleRegisterModal = () => {
     setView((prev) => !prev);
- };
+  };
+
+  const onClose = () => {};
 
   const posts = [
     {
@@ -85,6 +88,7 @@ const mistakeFeed = () => {
       <AnimatePresence>
         {view ? <RegisterModal toggleModal={toggleRegisterModal} /> : null}
       </AnimatePresence>
+      <SocialLoginModal isModalOpen onClose={onClose} />
     </div>
   );
 };
