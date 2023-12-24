@@ -19,7 +19,7 @@ const mistakeFeed = () => {
 
   const toggleRegisterModal = () => {
     setView((prev) => !prev);
- };
+  };
 
   const posts = [
     {
