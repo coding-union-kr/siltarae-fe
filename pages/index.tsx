@@ -77,7 +77,6 @@ const mistakeFeed = () => {
           author={post.author}
           content={post.content}
           comments={post.comments}
-          like={post.like}
         />
       ))}
       {/* <SocialLoginModal /> */}
