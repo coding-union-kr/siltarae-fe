@@ -1,11 +1,10 @@
 import React from "react";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import Avatar from "./Avatar";
 
 interface ContentCardProps {
-  author: string;
+  author?: string;
   content: string;
   comments: number;
   like: number;
@@ -25,12 +24,12 @@ function ContentCard({
           {author}
         </h3>
       </section>
+
       <p className="text-sm xs:text-base text-[#5C4F4D] leading-normal break-keep">
         {content}
       </p>
       <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">
-        {/* FIXME:  href 나중에 변경 */}
-        <Link href="/detailedMistakeFeed">댓글 {comments} 개</Link>
+        <p>댓글 {comments} 개</p>
         <div>
           <span className="mr-2">{like}</span>
           <FontAwesomeIcon
