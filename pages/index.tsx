@@ -1,89 +1,101 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
-// import AddPostButton from "@/components/AddPostButton";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
-import RegisterModal from "@/components/RegisterModal";
-import SocialLoginModal from "@/components/SocialLoginModal";
+import RegisterPostModal from "@/components/RegisterPostModal";
 import SortButton from "@/components/SortButton";
 import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFeedPosts } from "@/api/mistakeApi";
+import { AxiosError } from "axios";
+import Link from "next/link";
+import SocialLoginModal from "@/components/SocialLoginModal";
+// import SocialLoginModal from "@/components/SocialLoginModal";
+
+const SORT_POPULAR = "POPULAR";
+const SORT_RECENT = "FASTEST";
+type Post = {
+  id: number;
+  memberName: string;
+  content: string;
+  commentCount: number;
+  likeCount: number;
+};
 
 const mistakeFeed = () => {
-  const SORT_POPULAR = "인기순";
-  const SORT_RECENT = "최신순";
   const [selectSort, setSelectSort] = useState(SORT_POPULAR);
-  const [view, setView] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const toggleSort = (sort: string) => {
     setSelectSort(sort);
   };
 
   const toggleRegisterModal = () => {
-    setView((prev) => !prev);
+    setShowRegisterModal((prev) => !prev);
   };
 
-  const posts = [
-    {
-      author: "람쥐",
-      content: "테스트해봅니다 하하",
-      comments: 5,
-      like: 392,
-    },
-    {
-      author: "서비",
-      content: `로렘 입숨은 출판이나 그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃
-        같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 채우기
-        텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각
-        디자인 프로젝트 모형의 채움 글로도`,
-      comments: 3,
-      like: 10,
-    },
-    {
-      author: "파덕",
-      content: `로렘 입숨은 출판이나 그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃
-        같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 채우기
-        텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각
-        디자인 프로젝트 모형의 채움 글로도`,
-      comments: 3,
-      like: 10,
-    },
-    {
-      author: "매니",
-      content: `로렘 입숨은 출판이나 그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃
-        같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 채우기
-        텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각
-        디자인 프로젝트 모형의 채움 글로도`,
-      comments: 3,
-      like: 10,
-    },
-  ];
+  const {
+    data: posts,
+    isPending,
+    refetch,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => fetchFeedPosts(11, 0, selectSort),
+  });
 
+  useEffect(() => {
+    refetch();
+  }, [selectSort, refetch]);
+
+  // FIXME: 무한 스크롤? 페이지네이션?
   return (
-    <div className="flex justify-center items-center flex-col my-4 mb-4 relative">
+    <div className="flex justify-center items-center flex-col my-4 mb-20 relative">
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
           sortType={SORT_POPULAR}
           currentSort={selectSort}
           onToggleSort={toggleSort}
+          content="인기순"
         />
         <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
         <SortButton
           sortType={SORT_RECENT}
           currentSort={selectSort}
           onToggleSort={toggleSort}
+          content="최신순"
         />
       </div>
-      {posts.map((post) => (
-        <ContentCard
-          author={post.author}
-          content={post.content}
-          comments={post.comments}
-        />
+      {isPending && (
+        <span className="loading loading-dots loading-lg text-secondary" />
+      )}
+      {isError && (
+        <span>
+          {error instanceof AxiosError
+            ? error?.response?.data.message
+            : "게시글을 불러오는데 실패했습니다. 다시 시도해보세요."}
+        </span>
+      )}
+      {posts?.map((post: Post) => (
+        <Link href={`/detailedMistakeFeed/${post.id}`}>
+          <ContentCard
+            key={post.id}
+            author={post.memberName}
+            content={post.content}
+            comments={post.commentCount}
+            like={post.likeCount}
+          />
+        </Link>
       ))}
-      {/* <SocialLoginModal /> */}
+      {/* FIXME: 로그인 토큰이 없을 시 로그인 모달이 올라오기 */}
+      {/* <SocialLoginModal/> */}
       <AddPostButton toggleModal={toggleRegisterModal} />
       <AnimatePresence>
-        {view ? <RegisterModal toggleModal={toggleRegisterModal} /> : null}
+        {showRegisterModal ? (
+          <RegisterPostModal toggleModal={toggleRegisterModal} />
+        ) : null}
       </AnimatePresence>
       <SocialLoginModal isModalOpen onClose={onClose} />
     </div>
