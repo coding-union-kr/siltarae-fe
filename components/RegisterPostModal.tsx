@@ -1,25 +1,52 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, { MouseEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { createMistakePost } from "@/api/mistakeApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import Tag from "./Tag";
+import { AxiosError } from "axios";
+// import Tag from "./Tag";
 
-interface RegisterModalProps {
+interface RegisterPostModalProps {
   toggleModal: () => void;
 }
 
-export default function RegisterModal({ toggleModal }: RegisterModalProps) {
-  // 버블링 방지 함수 어떻게 써야하지...?
-  const WrapperClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+export default function RegisterPostModal({
+  toggleModal,
+}: RegisterPostModalProps) {
+  //  TODO: 태그 설정후, 태그 추가 옵션 작업하기
+  // const [tags, setTags] = useState([]);
+  const [content, setContent] = useState("");
+
+  // const handleTagChange = (e) => {
+  //   setTags(e.target.value);
+  // };
+
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: () => createMistakePost(content, ""),
+    onSuccess: () => {
+      setTimeout(() => {
+        toggleModal();
+      }, 5000);
+    },
+  });
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
+
+  const WrapperClick = (e: MouseEvent) => {
     e.stopPropagation();
   };
+
   return (
     <motion.section
       className="fixed flex justify-center items-end top-0 left-0 right-0 mx-auto w-full h-full bg-black/50 z-50"
-      onClick={toggleModal}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      onClick={toggleModal}
     >
       <motion.div
         className="flex flex-col justify-between w-full max-w-[500px] h-[80vh] gap-10 rounded-t-[20px] bg-[#FDF8F3] px-5 py-10"
@@ -43,26 +70,41 @@ export default function RegisterModal({ toggleModal }: RegisterModalProps) {
               className="absolute right-5 top-8 text-[#9CC490]"
             />
           </div>
-          <Tag />
+          {/* <Tag /> */}
         </div>
         <div className="flex flex-1 flex-col">
           <span className="text-xl font-semibold text-[#856E69]">
             내용 입력
           </span>
-          <input
-            className="border-2 border-[#9CC490] mt-5 focus:border-[#9CC490] rounded-[25px] px-4 py-2 h-full max-h-[300px] text-sm"
+          <textarea
+            className="border-2 border-[#9CC490] mt-5 focus:border-[#9CC490] rounded-[25px] px-4 py-5 h-full max-h-[300px] text-sm resize-none"
             placeholder="내용을 입력해주세요."
+            onChange={handleContentChange}
+            minLength={10}
+            maxLength={280}
           />
+          {isSuccess && <span>게시글 작성이 완료되었습니다.</span>}
+          {isPending && <span>로딩중...</span>}
+          {isError && (
+            <span className="pl-2 pt-2 text-red-600 font-semibold">
+              {error instanceof AxiosError
+                ? error?.response?.data.message
+                : "게시글 작성에 실패했습니다. 다시 시도해보세요."}
+            </span>
+          )}
           <div className="flex gap-5 justify-end mt-5">
             <button
               type="button"
               className="px-10 py-3 bg-white rounded-[25px] shadow-lg text-[#856E69] font-semibold"
+              onClick={toggleModal}
             >
               취소
             </button>
             <button
+              id="register-button"
               type="button"
               className="px-10 py-3 bg-[#88BC79] rounded-[25px] shadow-lg text-white font-semibold"
+              onClick={() => mutate()}
             >
               등록
             </button>
