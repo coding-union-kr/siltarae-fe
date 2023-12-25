@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import Avatar from "./Avatar";
 import LikeButton from "./LikeButton";
 
@@ -30,7 +29,7 @@ function ContentCard({
       </p>
       <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">
         {/* FIXME:  href 나중에 변경 */}
-        <Link href="/detailedMistakeFeed">댓글 {comments} 개</Link>
+        댓글 {comments} 개
         <LikeButton count={like} />
       </section>
       <div />

@@ -9,14 +9,15 @@ interface LikeButtonProps {
 
 function LikeButton({ count }: LikeButtonProps) {
   const [isLike, setIsLike] = useState(false);
-  const [count, setCount] = useState(325);
+  // const [count, setCount] = useState(325);
 
-  const toggleLikeButton = () => {
+  const toggleLikeButton = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     if (!isLike) {
-      setCount((prev) => prev + 1);
+      // setCount((prev) => prev + 1);
       setIsLike(true);
     } else {
-      setCount((prev) => prev - 1);
+      // setCount((prev) => prev - 1);
       setIsLike(false);
     }
   };
