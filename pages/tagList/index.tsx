@@ -2,41 +2,46 @@ import React from "react";
 import { motion } from "framer-motion";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
-
-const exData = [
-  { num: 1, title: "태그1" },
-  { num: 2, title: "태그2" },
-  { num: 3, title: "태그3" },
-  { num: 4, title: "태그4" },
-  { num: 5, title: "태그5" },
-  { num: 6, title: "태그6" },
-  { num: 7, title: "태그7" },
-  { num: 8, title: "태그8" },
-  { num: 9, title: "태그9" },
-  { num: 10, title: "서비" },
-  { num: 11, title: "람쥐님" },
-  { num: 12, title: "파덕님" },
-  { num: 13, title: "매니님" },
-];
+import { fetchTags } from "@/api/tagApi";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export default function TagList() {
-  const router = useRouter();
-
-  const selectTag = () => {
-    router.push("/personalMistake");
+  type Tag = {
+    id: number;
+    name: string;
   };
+
+  const {
+    data: tags,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["tags"],
+    queryFn: () => fetchTags(),
+  });
+
   return (
     <div className="h-full p-5">
       <ul className="bg-white h-auto text-2xl rounded-[10px] overflow-hidden shadow-md">
-        {exData.map((data) => (
+        {isPending && (
+          <span className="loading loading-dots loading-lg text-secondary" />
+        )}
+        {isError && (
+          <span>
+            {error instanceof AxiosError
+              ? error?.response?.data.message
+              : "태그를 불러오는데 실패했습니다. 다시 시도해보세요."}
+          </span>
+        )}
+        {tags?.map((tag: Tag) => (
           <motion.li
-            key={data.num}
+            key={tag.id}
             whileHover={{ backgroundColor: "#DDDEDF" }}
             className="p-5 flex flex-row justify-between"
-            onClick={selectTag}
           >
-            <p>{data.title}</p>
+            <p>{tag.name}</p>
             <div>
               <FontAwesomeIcon icon={faEllipsis} size="sm" />
             </div>

@@ -3,16 +3,21 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-function LikeButton() {
-  const [isLike, setIsLike] = useState(false);
-  const [count, setCount] = useState(325);
+interface LikeButtonProps {
+  count: number;
+}
 
-  const toggleLikeButton = () => {
+function LikeButton({ count }: LikeButtonProps) {
+  const [isLike, setIsLike] = useState(false);
+  // const [count, setCount] = useState(325);
+
+  const toggleLikeButton = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     if (!isLike) {
-      setCount((prev) => prev + 1);
+      // setCount((prev) => prev + 1);
       setIsLike(true);
     } else {
-      setCount((prev) => prev - 1);
+      // setCount((prev) => prev - 1);
       setIsLike(false);
     }
   };
