@@ -22,8 +22,6 @@ const mistakeFeed = () => {
     setView((prev) => !prev);
   };
 
-  const onClose = () => {};
-
   const posts = [
     {
       author: "람쥐",
@@ -80,7 +78,6 @@ const mistakeFeed = () => {
           author={post.author}
           content={post.content}
           comments={post.comments}
-          like={post.like}
         />
       ))}
       {/* <SocialLoginModal /> */}
