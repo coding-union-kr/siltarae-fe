@@ -10,11 +10,15 @@ function Layout(props: { children: React.ReactNode }) {
 
   return (
     <div id="container" className="h-auto flex justify-center">
-      {router.pathname === "/detailedMistakeFeed" ? <PostHeader /> : <Header />}
+      {router.route.includes("/detailedMistakeFeed/") ? (
+        <PostHeader />
+      ) : (
+        <Header />
+      )}
       <div className="my-16 w-[500px] max-w-[500px] bg-[#FDF8F3]">
         {children}
       </div>
-      {router.pathname === "/detailedMistakeFeed" ? null : <NavBar />}
+      {router.route.includes("/detailedMistakeFeed/") ? null : <NavBar />}
     </div>
   );
 }
