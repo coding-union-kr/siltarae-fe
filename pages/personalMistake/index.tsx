@@ -1,45 +1,74 @@
+/* eslint-disable no-console */
+import { fetchPersonalPosts } from "@/api/mistakeApi";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
-import RegisterModal from "@/components/RegisterModal";
+import RegisterPostModal from "@/components/RegisterPostModal";
 import Tag from "@/components/Tag";
+// import Tag from "@/components/Tag";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 
 export default function PersonalMistake() {
-  const [view, setView] = useState(false);
-  const toggleRegisterModal = () => {
-    setView((prev) => !prev);
+  type Post = {
+    id: number;
+    content: string;
+    // memberName: string;
+    commentCount: number;
+    likeCount: number;
   };
+
+  type Tag = {
+    id: number;
+    name: string;
+  };
+
+  const [showRegisterPostModal, setShowRegisterModal] = useState(false);
+
+  const toggleRegisterPostModal = () => {
+    setShowRegisterModal((prev) => !prev);
+  };
+
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["personal_posts"],
+    queryFn: () => fetchPersonalPosts(0, 5, "1,2"),
+  });
+
+  console.log(data, "data");
+
   return (
-    <div className="bg-[#FDF8F3] px-5 pb-5">
-      <div className="flex flex-col gap-5">
-        <Tag />
-        <ContentCard
-          author="람쥐"
-          content="엄청 피곤해여.."
-          comments={12352}
-          like={34352}
-        />
-        <ContentCard
-          author="진섭"
-          content="일찍 운동도 갔다오고, 아침 카페가서 한잔하고 여유있게 하루를 시작했습니다."
-          comments={1000}
-          like={1000}
-        />
-        <ContentCard
-          author="매니"
-          content="점심 순대국밥!"
-          comments={30}
-          like={35}
-        />
-        <ContentCard
-          author="파덕"
-          content="졸립니다..."
-          comments={50}
-          like={50}
-        />
+    <div className="bg-[#FDF8F3] w-full mt-2 mr-16 mb-20">
+      <div className="ml-4 flex">
+        {data &&
+          data?.tags?.map((tag: Tag) => <Tag key={tag.id} name={tag.name} />)}
       </div>
-      <AddPostButton toggleModal={toggleRegisterModal} />
-      {view ? <RegisterModal toggleModal={toggleRegisterModal} /> : null}
+      <div className="flex flex-col justify-end items-center ">
+        {isPending && (
+          <span className="loading loading-dots loading-lg text-secondary" />
+        )}
+        {isError && (
+          <span className="text-red-600 font-semibold">
+            {error instanceof AxiosError
+              ? error?.response?.data.message
+              : "게시글을 불러오는데 실패했습니다. 다시 시도해보세요."}
+          </span>
+        )}
+        {data &&
+          data.mistakes?.map((post: Post) => (
+            // FIXME: 유저명을 알 때, author 값을 바꾸기
+            <ContentCard
+              key={post.id}
+              author="OAuth구현 뒤 받아올 값"
+              content={post.content}
+              comments={post.commentCount}
+              like={post.likeCount}
+            />
+          ))}
+      </div>
+      <AddPostButton toggleModal={toggleRegisterPostModal} />
+      {showRegisterPostModal ? (
+        <RegisterPostModal toggleModal={toggleRegisterPostModal} />
+      ) : null}
     </div>
   );
 }
