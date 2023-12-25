@@ -1,7 +1,7 @@
 import React from "react";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import Avatar from "./Avatar";
+import LikeButton from "./LikeButton";
 
 interface ContentCardProps {
   author?: string;
@@ -29,15 +29,9 @@ function ContentCard({
         {content}
       </p>
       <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">
-        <p>댓글 {comments} 개</p>
-        <div>
-          <span className="mr-2">{like}</span>
-          <FontAwesomeIcon
-            icon={faHeart}
-            size="lg"
-            className="cursor-pointer text-[#F3685F]"
-          />
-        </div>
+        {/* FIXME:  href 나중에 변경 */}
+        <Link href="/detailedMistakeFeed">댓글 {comments} 개</Link>
+        <LikeButton count={like} />
       </section>
       <div />
     </article>
