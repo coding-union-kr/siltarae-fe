@@ -5,16 +5,28 @@ export default function GoogleLoading() {
   useEffect(() => {
     async function loading() {
       const authCode = new URL(window.location.href).searchParams.get("code");
-      console.log(authCode);
       try {
         const response = await axios.post(
           `https://api-siltarae.store/api/v1/login/google`,
           { authCode },
         );
-        console.log("성공했어요");
-        return response;
+
+        // 엑세스 토큰 받아오기
+        const { accessToken } = response.data;
+        localStorage.setItem("access_token", accessToken);
+
+        // 사용자 정보 요청
+        const userInfo = await axios.get(
+          `https://www.googleapis.com/oauth2/v1/userinfo`,
+          {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+        return console.log(userInfo);
       } catch (err) {
-        return console.log("에러났어요");
+        return console.log("err=", err);
       }
     }
     loading();
