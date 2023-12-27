@@ -25,7 +25,7 @@ export async function fetchPersonalPosts(
   try {
     const response = await api.get("/mistakes", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU1MjQzLCJleHAiOjE3MDM2NTcwNDN9.__pqZAkZAUCkx6nK-ze-aBRj7lR-1FQxJEiRTRDu08w`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
       },
       params: { page, size, tag },
     });
@@ -40,7 +40,7 @@ export async function fetchDetailedPost(id: string) {
   try {
     const response = await api.get(`/mistakes/${id}`, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU1MjQzLCJleHAiOjE3MDM2NTcwNDN9.__pqZAkZAUCkx6nK-ze-aBRj7lR-1FQxJEiRTRDu08w`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
       },
     });
     return response.data;
@@ -54,7 +54,7 @@ export async function createMistakePost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU1MjQzLCJleHAiOjE3MDM2NTcwNDN9.__pqZAkZAUCkx6nK-ze-aBRj7lR-1FQxJEiRTRDu08w`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
       },
       data: {
         tagIds: tags,
@@ -72,7 +72,7 @@ export async function likePost(id: number) {
   try {
     const response = await api.post("/like", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU1MjQzLCJleHAiOjE3MDM2NTcwNDN9.__pqZAkZAUCkx6nK-ze-aBRj7lR-1FQxJEiRTRDu08w`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
       },
       params: {
         mistakeId: id,

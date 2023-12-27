@@ -22,9 +22,7 @@ export default function RegisterPostModal({
   };
 
   const [content, setContent] = useState("");
-  const [selectedTags, setSelectedTags] = useState<
-    { id: number; name: string }[]
-  >([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
