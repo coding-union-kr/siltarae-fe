@@ -25,7 +25,11 @@ export async function fetchPersonalPosts(
   try {
     const response = await api.get("/mistakes", {
       headers: {
+<<<<<<< HEAD
         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+=======
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyLCJleHBpcmF0aW9uIjoxODE4MDM5MDIyfQ.4S2FuDbdZyESn8YeE3rNnq1bx_RgrcLWCpbymAP5t5w`,
+>>>>>>> develop
       },
       params: { page, size, tag },
     });
@@ -40,7 +44,11 @@ export async function fetchDetailedPost(id: string) {
   try {
     const response = await api.get(`/mistakes/${id}`, {
       headers: {
+<<<<<<< HEAD
         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+=======
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyLCJleHBpcmF0aW9uIjoxODE4MDM5MDIyfQ.4S2FuDbdZyESn8YeE3rNnq1bx_RgrcLWCpbymAP5t5w`,
+>>>>>>> develop
       },
     });
     return response.data;
@@ -50,11 +58,19 @@ export async function fetchDetailedPost(id: string) {
   }
 }
 
+<<<<<<< HEAD
 export async function createMistakePost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+=======
+export async function createMistakePost(content: string, tags: string) {
+  try {
+    const response = await api.post("/mistakes", {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyLCJleHBpcmF0aW9uIjoxODE4MDM5MDIyfQ.4S2FuDbdZyESn8YeE3rNnq1bx_RgrcLWCpbymAP5t5w`,
+>>>>>>> develop
       },
       data: {
         tagIds: tags,
