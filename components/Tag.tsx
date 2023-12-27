@@ -4,8 +4,8 @@ import React from "react";
 
 interface TypeProps {
   name: string;
-  isSelected: boolean;
-  handleTagClick: () => void;
+  isSelected?: boolean;
+  handleTagClick?: () => void;
 }
 
 export default function Tag({ name, handleTagClick, isSelected }: TypeProps) {
