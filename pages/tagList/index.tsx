@@ -2,13 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
 import { deleteTag, fetchTags } from "@/api/tagApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
-=======
-import { fetchTags } from "@/api/tagApi";
-import { useQuery } from "@tanstack/react-query";
->>>>>>> develop
 import { AxiosError } from "axios";
 
 export default function TagList() {
