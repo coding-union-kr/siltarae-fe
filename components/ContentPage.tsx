@@ -1,9 +1,10 @@
 import React from "react";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
+import { likePost } from "@/api/mistakeApi";
+import { useMutation } from "@tanstack/react-query";
 import Avatar from "./Avatar";
+import LikeButton from "./LikeButton";
 // import Tag from "./Tag";
 interface ContentPageProps {
   data: any;
@@ -13,6 +14,10 @@ interface ContentPageProps {
 }
 
 function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
+  const { mutate } = useMutation({
+    mutationFn: () => likePost(data.id),
+  });
+
   return (
     <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
@@ -35,13 +40,8 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
         {data?.content}
       </p>
 
-      <motion.button whileHover={{ scale: 1.0 }} whileTap={{ scale: 1.3 }}>
-        <FontAwesomeIcon
-          icon={faHeart}
-          size="lg"
-          className="cursor-pointer text-[#F3685F] ml-1"
-        />
-        <span className="ml-2 text-sm">{data?.likeCount}</span>
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.2 }}>
+        <LikeButton count={data?.likeCount} onLikeClick={mutate} />
       </motion.button>
       <div />
     </article>
