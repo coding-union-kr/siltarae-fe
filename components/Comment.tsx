@@ -1,18 +1,55 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import fetchComments from "@/api/commentApi";
+import { AxiosError } from "axios";
+import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 
+type CommentDataType = {
+  memberId: number;
+  memberName: string;
+  commentId: number;
+  commentContent: string;
+};
+
 function Comment() {
+  const router = useRouter();
+  const { id } = router.query;
+  const {
+    data: comments,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["comments_get", id],
+    queryFn: () => fetchComments(10, 0, id as string),
+  });
+
   return (
     <div className="flex flex-row gap-2 items-start px-8 py-5">
-      <Avatar />
-      <div className="ml-2 mt-1">
-        <h3 className="text-lg text-[#856E69] font-bold mb-2">고라파덕</h3>
-        <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify max-w-[500px] ">
-          로렘 입숨은 출판이나 그래픽 디자인 분야에서 폰트, 타이포그래피,
-          레이아웃 같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준
-          채우기 텍스트
-        </p>
-      </div>
+      {isPending && (
+        <span className="loading loading-dots loading-lg text-secondary" />
+      )}
+      {isError && (
+        <span>
+          {error instanceof AxiosError
+            ? error?.message
+            : "댓글을 불러오는데 실패했습니다. 새로고침 해주세요."}
+        </span>
+      )}
+      {comments?.map((comment: CommentDataType) => (
+        <div key={comment.memberId}>
+          <Avatar />
+          <div className="ml-2 mt-1">
+            <h3 className="text-lg text-[#856E69] font-bold mb-2">
+              {comment.memberName}
+            </h3>
+            <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify max-w-[500px] ">
+              {comment.commentContent}
+            </p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
