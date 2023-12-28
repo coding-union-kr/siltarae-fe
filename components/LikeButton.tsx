@@ -5,16 +5,18 @@ import React, { useState } from "react";
 
 interface LikeButtonProps {
   count: number;
+  onLikeClick: () => void;
 }
 
-function LikeButton({ count }: LikeButtonProps) {
+function LikeButton({ count, onLikeClick = () => {} }: LikeButtonProps) {
   const [isLike, setIsLike] = useState(false);
   // const [count, setCount] = useState(325);
 
-  const toggleLikeButton = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const toggleLikeButton = (e: React.MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     if (!isLike) {
       // setCount((prev) => prev + 1);
+      onLikeClick();
       setIsLike(true);
     } else {
       // setCount((prev) => prev - 1);

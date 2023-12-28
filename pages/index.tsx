@@ -82,6 +82,7 @@ const mistakeFeed = () => {
         <Link href={`/detailedMistakeFeed/${post.id}`}>
           <ContentCard
             key={post.id}
+            id={post.id}
             author={post.memberName}
             content={post.content}
             comments={post.commentCount}

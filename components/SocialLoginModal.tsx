@@ -2,23 +2,13 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-interface SocialLoginModalProps {
-  isModalOpen: boolean;
-  onClose: () => void;
-}
+// interface SocialLoginModalProps {
+//   isModalOpen: boolean;
+//   onClose: () => void;
+// }
+// { isModalOpen, onClose }: SocialLoginModalProps
 
-function SocialLoginModal({ isModalOpen, onClose }: SocialLoginModalProps) {
-  // 구글에서 발급받는 클라이언트 아이디
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  // 코드를 전달받는 리다이렉트 웹페이지
-  const googleRedirectUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
-  const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${googleRedirectUrl}&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=code`;
-
-  const loginHandler = () => {
-    // 구글 로그인 화면으로 이동 후 로딩화면으로 리다이렉트
-    window.location.href = googleAuthUrl;
-  };
-
+function SocialLoginModal() {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
