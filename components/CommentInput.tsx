@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCommensPost } from "@/api/commentApi";
+import { createCommentsPost } from "@/api/commentApi";
 import { useRouter } from "next/router";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ function CommentInput() {
   const [content, setContent] = useState("");
   // 댓글 추가기능
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
-    mutationFn: () => createCommensPost(id as string, content),
+    mutationFn: () => createCommentsPost(id as string, content),
     // 자동으로 리프레쉬 되도록 해주는 코드
     onSuccess: () => {
       queryCilent.invalidateQueries();

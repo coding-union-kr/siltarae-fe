@@ -19,7 +19,7 @@ export async function fetchComments(
 }
 
 // 댓글 추가하기
-export async function createCommensPost(mistakeId: string, content: string) {
+export async function createCommentsPost(mistakeId: string, content: string) {
   try {
     const response = await api.post(
       `/comment`,
