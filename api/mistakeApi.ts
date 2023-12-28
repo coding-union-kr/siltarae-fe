@@ -58,10 +58,10 @@ export async function createMistakePost(content: string, tags: number[]) {
       headers: {
         Authorization: loginToken,
       },
-      data: JSON.stringify({
+      data: {
         tagIds: tags,
         content,
-      }),
+      },
     });
     return response.data;
   } catch (error) {
