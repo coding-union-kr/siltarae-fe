@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
-import { fetchTags } from "@/api/tagApi";
+import { createTag, fetchTags } from "@/api/tagApi";
 import Tag from "./Tag";
 
 interface RegisterPostModalProps {
@@ -52,7 +52,13 @@ export default function RegisterPostModal({
     queryFn: () => fetchTags(),
   });
 
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const {
+    mutate: newPost,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: () =>
       createMistakePost(
         content,
@@ -63,6 +69,10 @@ export default function RegisterPostModal({
         toggleModal();
       }, 5000);
     },
+  });
+
+  const { mutate: newTag } = useMutation({
+    mutationFn: (tagName: string) => createTag(tagName),
   });
 
   const handleTagSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +113,12 @@ export default function RegisterPostModal({
               className="w-full border-2 border-[#9CC490] mt-5 focus:border-[#9CC490] rounded-[25px] px-4 py-2 text-sm"
               placeholder="태그를 검색하세요."
               onChange={handleTagSearchChange}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  newTag(e.currentTarget.value);
+                }
+              }}
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
@@ -154,7 +170,7 @@ export default function RegisterPostModal({
               id="register-button"
               type="button"
               className="px-10 py-3 bg-[#88BC79] rounded-[25px] shadow-lg text-white font-semibold"
-              onClick={() => mutate()}
+              onClick={() => newPost()}
             >
               등록
             </button>

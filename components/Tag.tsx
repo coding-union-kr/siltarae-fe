@@ -1,5 +1,3 @@
-// import { faX } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
@@ -19,8 +17,8 @@ export default function Tag({
 }: TypeProps) {
   return (
     <div
-      className={`bg-[#9CC490] flex gap-2 items-center w-30 px-4 py-1 rounded-[20px] text-white text-sm font-semibold cursor-pointer ${
-        isSelected ? "bg-[#617b5a]" : ""
+      className={`flex gap-2 items-center w-30 px-4 py-1 rounded-[20px] text-white text-sm font-semibold cursor-pointer ${
+        isSelected ? "bg-[#617b5a]" : "bg-[#9CC490]"
       }`}
       onClick={handleTagClick}
     >
