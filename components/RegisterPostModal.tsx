@@ -81,11 +81,22 @@ export default function RegisterPostModal({
     if (searchText === "") {
       setFilteredTags([]);
     } else {
-      const filtered = tags?.filter((tag: Tag) =>
-        tag.name.startsWith(searchText),
+      const filtered = tags?.filter(
+        (tag: Tag) =>
+          tag.name.startsWith(searchText) &&
+          !selectedTags.some((selectedTag) => selectedTag.id === tag.id),
       );
       setFilteredTags(filtered || []);
     }
+  };
+
+  const getRenderTags = () => {
+    const uniqueFilteredTags = filteredTags.filter(
+      (filteredTag) =>
+        !selectedTags.some((selectedTag) => selectedTag.id === filteredTag.id),
+    );
+
+    return [...selectedTags, ...uniqueFilteredTags];
   };
 
   return (
@@ -126,7 +137,7 @@ export default function RegisterPostModal({
             />
           </div>
           <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
-            {filteredTags.map((tag: Tag) => (
+            {getRenderTags().map((tag: Tag) => (
               <Tag
                 key={tag.id}
                 name={tag.name}
