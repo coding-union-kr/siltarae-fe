@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import fetchComments from "@/api/commentApi";
+import { fetchComments } from "@/api/commentApi";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import Avatar from "./Avatar";
@@ -26,7 +26,7 @@ function Comment() {
   });
 
   return (
-    <div className="flex flex-row gap-2 items-start px-8 py-5">
+    <div>
       {isPending && (
         <span className="loading loading-dots loading-lg text-secondary" />
       )}
@@ -38,7 +38,10 @@ function Comment() {
         </span>
       )}
       {comments?.map((comment: CommentDataType) => (
-        <div key={comment.memberId}>
+        <div
+          key={comment.commentId}
+          className="flex flex-row gap-2 items-start px-8 py-5"
+        >
           <Avatar />
           <div className="ml-2 mt-1">
             <h3 className="text-lg text-[#856E69] font-bold mb-2">
