@@ -81,15 +81,21 @@ export default function RegisterPostModal({
     if (searchText === "") {
       setFilteredTags([]);
     } else {
+<<<<<<< HEAD
       const filtered = tags?.filter(
         (tag: Tag) =>
           tag.name.startsWith(searchText) &&
           !selectedTags.some((selectedTag) => selectedTag.id === tag.id),
+=======
+      const filtered = tags?.filter((tag: Tag) =>
+        tag.name.startsWith(searchText),
+>>>>>>> develop
       );
       setFilteredTags(filtered || []);
     }
   };
 
+<<<<<<< HEAD
   const getRenderTags = () => {
     const uniqueFilteredTags = filteredTags.filter(
       (filteredTag) =>
@@ -99,6 +105,8 @@ export default function RegisterPostModal({
     return [...selectedTags, ...uniqueFilteredTags];
   };
 
+=======
+>>>>>>> develop
   return (
     <motion.section
       className="fixed flex justify-center items-end top-0 left-0 right-0 mx-auto w-full h-full bg-black/50 z-50"
@@ -137,7 +145,11 @@ export default function RegisterPostModal({
             />
           </div>
           <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
+<<<<<<< HEAD
             {getRenderTags().map((tag: Tag) => (
+=======
+            {filteredTags.map((tag: Tag) => (
+>>>>>>> develop
               <Tag
                 key={tag.id}
                 name={tag.name}

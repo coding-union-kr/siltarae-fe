@@ -56,7 +56,11 @@ export async function createMistakePost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
       headers: {
+<<<<<<< HEAD
         Authorization: loginToken,
+=======
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+>>>>>>> develop
       },
       data: JSON.stringify({
         tagIds: tags,
