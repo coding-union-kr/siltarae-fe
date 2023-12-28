@@ -1,10 +1,12 @@
 import api from "./api";
 
+const loginToken = process.env.LOGIN_TOKEN;
+
 export async function fetchTags() {
   try {
     const response = await api.get("/tags", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+        Authorization: loginToken,
       },
     });
     return response.data.tags;
@@ -18,7 +20,7 @@ export async function deleteTag(id: number[]) {
   try {
     const response = await api.post("/tags/delete", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+        Authorization: loginToken,
       },
       id,
     });
@@ -33,7 +35,7 @@ export async function createTag(name: string) {
   try {
     const response = await api.post("/tags", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+        Authorization: loginToken,
       },
       name,
     });
