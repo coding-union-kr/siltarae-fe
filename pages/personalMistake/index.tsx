@@ -57,6 +57,7 @@ export default function PersonalMistake() {
           data.mistakes?.map((post: Post) => (
             // FIXME: 유저명을 알 때, author 값을 바꾸기
             <ContentCard
+              id={post.id}
               key={post.id}
               author="OAuth구현 뒤 받아올 값"
               content={post.content}

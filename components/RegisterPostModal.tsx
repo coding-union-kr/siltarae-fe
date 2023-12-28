@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { MouseEvent, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { createMistakePost } from "@/api/mistakeApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
-// import Tag from "./Tag";
+import { fetchTags } from "@/api/tagApi";
+import Tag from "./Tag";
 
 interface RegisterPostModalProps {
   toggleModal: () => void;
@@ -15,22 +16,16 @@ interface RegisterPostModalProps {
 export default function RegisterPostModal({
   toggleModal,
 }: RegisterPostModalProps) {
-  //  TODO: 태그 설정후, 태그 추가 옵션 작업하기
-  // const [tags, setTags] = useState([]);
+  type Tag = {
+    id: number;
+    name: string;
+  };
+
   const [content, setContent] = useState("");
-
-  // const handleTagChange = (e) => {
-  //   setTags(e.target.value);
-  // };
-
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
-    mutationFn: () => createMistakePost(content, ""),
-    onSuccess: () => {
-      setTimeout(() => {
-        toggleModal();
-      }, 5000);
-    },
-  });
+  const [selectedTags, setSelectedTags] = useState<
+    { id: number; name: string }[]
+  >([]);
+  const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -38,6 +33,51 @@ export default function RegisterPostModal({
 
   const WrapperClick = (e: MouseEvent) => {
     e.stopPropagation();
+  };
+
+  const handleTagClick = (tag: Tag) => {
+    setSelectedTags((prevSelectedTags) => {
+      const isTagSelected = prevSelectedTags.some(
+        (selectedTag) => selectedTag.id === tag.id,
+      );
+      if (isTagSelected) {
+        return prevSelectedTags.filter(
+          (selectedTag) => selectedTag.id !== tag.id,
+        );
+      }
+      return [...prevSelectedTags, { id: tag.id, name: tag.name }];
+    });
+  };
+
+  const { data: tags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: () => fetchTags(),
+  });
+
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: () =>
+      createMistakePost(
+        content,
+        selectedTags.map((tag) => tag.id),
+      ),
+    onSuccess: () => {
+      setTimeout(() => {
+        toggleModal();
+      }, 5000);
+    },
+  });
+
+  const handleTagSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchText = e.target.value;
+
+    if (searchText === "") {
+      setFilteredTags([]);
+    } else {
+      const filtered = tags?.filter((tag: Tag) =>
+        tag.name.startsWith(searchText),
+      );
+      setFilteredTags(filtered || []);
+    }
   };
 
   return (
@@ -64,13 +104,25 @@ export default function RegisterPostModal({
             <input
               className="w-full border-2 border-[#9CC490] mt-5 focus:border-[#9CC490] rounded-[25px] px-4 py-2 text-sm"
               placeholder="태그를 검색하세요."
+              onChange={handleTagSearchChange}
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               className="absolute right-5 top-8 text-[#9CC490]"
             />
           </div>
-          {/* <Tag /> */}
+          <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
+            {filteredTags.map((tag: Tag) => (
+              <Tag
+                key={tag.id}
+                name={tag.name}
+                handleTagClick={() => handleTagClick(tag)}
+                isSelected={selectedTags.some(
+                  (selectedTag) => selectedTag.id === tag.id,
+                )}
+              />
+            ))}
+          </div>
         </div>
         <div className="flex flex-1 flex-col">
           <span className="text-xl font-semibold text-[#856E69]">
