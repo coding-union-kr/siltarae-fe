@@ -78,9 +78,8 @@ const mistakeFeed = () => {
         </span>
       )}
       {posts?.map((post: Post) => (
-        <Link href={`/detailedMistakeFeed/${post.id}`}>
+        <Link href={`/detailedMistakeFeed/${post.id}`} key={post.id}>
           <ContentCard
-            key={post.id}
             author={post.memberName}
             content={post.content}
             comments={post.commentCount}
