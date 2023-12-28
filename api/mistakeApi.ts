@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
+const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
+
 export async function fetchFeedPosts(
   size: number,
   page: number,
@@ -25,7 +27,7 @@ export async function fetchPersonalPosts(
   try {
     const response = await api.get("/mistakes", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+        Authorization: loginToken,
       },
       params: { page, size, tag },
     });
@@ -40,7 +42,7 @@ export async function fetchDetailedPost(id: string) {
   try {
     const response = await api.get(`/mistakes/${id}`, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+        Authorization: loginToken,
       },
     });
     return response.data;
@@ -54,7 +56,7 @@ export async function createMistakePost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+        Authorization: loginToken,
       },
       data: {
         tagIds: tags,
@@ -72,7 +74,7 @@ export async function likePost(id: number) {
   try {
     const response = await api.post("/like", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjU5MTY2LCJleHAiOjE4MDM2NTkxNjZ9.uNGzulSDuv3poCc4-5qGoItS3puDyPsEtFFBq_4jNkw`,
+        Authorization: loginToken,
       },
       params: {
         mistakeId: id,
