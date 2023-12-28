@@ -1,6 +1,6 @@
 import api from "./api";
 
-const loginToken = process.env.LOGIN_TOKEN;
+const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
 
 export async function fetchTags() {
   try {
