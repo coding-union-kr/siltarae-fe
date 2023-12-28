@@ -2,12 +2,13 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-interface SocialLoginModalProps {
-  isModalOpen: boolean;
-  onClose: () => void;
-}
+// interface SocialLoginModalProps {
+//   isModalOpen: boolean;
+//   onClose: () => void;
+// }
+// { isModalOpen, onClose }: SocialLoginModalProps
 
-function SocialLoginModal({ isModalOpen, onClose }: SocialLoginModalProps) {
+function SocialLoginModal() {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
