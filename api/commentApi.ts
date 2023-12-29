@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
-// 댓글 조회하기
+// Comments 조회
 export async function fetchComments(
   size: number,
   page: number,
@@ -13,12 +13,13 @@ export async function fetchComments(
     });
     return response.data.comments;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     throw error;
   }
 }
 
-// 댓글 추가하기
+// Comments 추가
 export async function createCommentsPost(mistakeId: string, content: string) {
   try {
     const response = await api.post(
@@ -26,12 +27,29 @@ export async function createCommentsPost(mistakeId: string, content: string) {
       { mistakeId, content },
       {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyLCJleHBpcmF0aW9uIjoxODE4MDM5MDIyfQ.4S2FuDbdZyESn8YeE3rNnq1bx_RgrcLWCpbymAP5t5w`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
         },
       },
     );
     return response.data;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    throw error;
+  }
+}
+
+// Comments 삭제
+export async function deleteComments(commentId: number) {
+  try {
+    const response = await api.delete(`/comment/${commentId}`, {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     throw error;
   }

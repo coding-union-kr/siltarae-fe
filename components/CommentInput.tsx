@@ -16,8 +16,10 @@ function CommentInput() {
     mutationFn: () => createCommentsPost(id as string, content),
     // 자동으로 리프레쉬 되도록 해주는 코드
     onSuccess: () => {
+      setContent("");
+    },
+    onSettled: () => {
       queryCilent.invalidateQueries();
-      return setContent("");
     },
   });
 
