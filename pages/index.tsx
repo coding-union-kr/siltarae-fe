@@ -86,6 +86,7 @@ const mistakeFeed = () => {
           comments={post.commentCount}
           like={post.likeCount}
         />
+
       ))}
       {/* FIXME: 로그인 토큰이 없을 시 로그인 모달이 올라오기 */}
       {/* <SocialLoginModal/> */}
