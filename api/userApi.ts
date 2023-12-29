@@ -3,44 +3,9 @@ import api from "./api";
 
 const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
 
-export async function fetchFeedPosts(
-  size: number,
-  page: number,
-  feedType: string,
-) {
+export async function getUserProfile() {
   try {
-    const response = await api.get("/feed", {
-      params: { size, page, feedType },
-    });
-    return response.data.feeds;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export async function fetchPersonalPosts(
-  page: number,
-  size: number,
-  tag: string,
-) {
-  try {
-    const response = await api.get("/mistakes", {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-      params: { page, size, tag },
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export async function fetchDetailedPost(id: string) {
-  try {
-    const response = await api.get(`/mistakes/${id}`, {
+    const response = await api.get("/member", {
       headers: {
         Authorization: `Bearer ${loginToken}`,
       },
@@ -52,15 +17,14 @@ export async function fetchDetailedPost(id: string) {
   }
 }
 
-export async function createMistakePost(content: string, tags: number[]) {
+export async function uploadProfileImage(file: File) {
   try {
-    const response = await api.post("/mistakes", {
+    const response = await api.post("/member/image", {
       headers: {
         Authorization: `Bearer ${loginToken}`,
       },
       data: {
-        tagIds: tags,
-        content,
+        file,
       },
     });
     return response.data;
@@ -70,14 +34,28 @@ export async function createMistakePost(content: string, tags: number[]) {
   }
 }
 
-export async function likePost(id: number) {
+export async function updateUserProfile(nickname: string) {
   try {
-    const response = await api.post("/like", {
+    const response = await api.put("/member", {
       headers: {
         Authorization: `Bearer ${loginToken}`,
       },
-      params: {
-        mistakeId: id,
+      data: {
+        nickname,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function deleteAccount() {
+  try {
+    const response = await api.delete("/member", {
+      headers: {
+        Authorization: `Bearer ${loginToken}`,
       },
     });
     return response.data;

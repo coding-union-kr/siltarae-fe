@@ -1,6 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
@@ -9,8 +8,7 @@ export default function Header() {
       <div className="flex flex-row h-full justify-between items-center px-5">
         <div>
           <Link href="/">
-            {/* FIXME : 로고 확정되면 다음에 변경 */}
-            <FontAwesomeIcon icon={faAppleWhole} size="2x" />
+            <Image src="/logo.png" alt="실타래_로고" width={100} height={50} />
           </Link>
         </div>
       </div>

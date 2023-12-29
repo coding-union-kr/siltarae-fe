@@ -6,7 +6,7 @@ export async function fetchTags() {
   try {
     const response = await api.get("/tags", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
     });
     return response.data.tags;
@@ -20,9 +20,9 @@ export async function deleteTag(id: number[]) {
   try {
     const response = await api.post("/tags/delete", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
-      id,
+      data: { id },
     });
     return response.data;
   } catch (error) {
@@ -35,9 +35,9 @@ export async function createTag(name: string) {
   try {
     const response = await api.post("/tags", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
-      name,
+      data: { name },
     });
     return response.data;
   } catch (error) {
