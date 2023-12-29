@@ -27,7 +27,7 @@ export async function fetchPersonalPosts(
   try {
     const response = await api.get("/mistakes", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
       params: { page, size, tag },
     });
@@ -42,7 +42,7 @@ export async function fetchDetailedPost(id: string) {
   try {
     const response = await api.get(`/mistakes/${id}`, {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
     });
     return response.data;
@@ -56,7 +56,7 @@ export async function createMistakePost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
       data: {
         tagIds: tags,
@@ -74,7 +74,7 @@ export async function likePost(id: number) {
   try {
     const response = await api.post("/like", {
       headers: {
-        Authorization: loginToken,
+        Authorization: `Bearer ${loginToken}`,
       },
       params: {
         mistakeId: id,
