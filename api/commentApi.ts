@@ -22,7 +22,7 @@ export async function fetchComments(
 }
 
 // Comments 추가
-export async function createCommentsPost(mistakeId: string, content: string) {
+export async function createComments(mistakeId: string, content: string) {
   try {
     const response = await api.post(
       `/comment`,
