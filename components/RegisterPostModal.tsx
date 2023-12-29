@@ -88,6 +88,15 @@ export default function RegisterPostModal({
     }
   };
 
+  const getRenderTags = () => {
+    const uniqueFilteredTags = filteredTags.filter(
+      (filteredTag) =>
+        !selectedTags.some((selectedTag) => selectedTag.id === filteredTag.id),
+    );
+
+    return [...selectedTags, ...uniqueFilteredTags];
+  };
+
   return (
     <motion.section
       className="fixed flex justify-center items-end top-0 left-0 right-0 mx-auto w-full h-full bg-black/50 z-50"
@@ -126,7 +135,7 @@ export default function RegisterPostModal({
             />
           </div>
           <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
-            {filteredTags.map((tag: Tag) => (
+            {getRenderTags().map((tag: Tag) => (
               <Tag
                 key={tag.id}
                 name={tag.name}
