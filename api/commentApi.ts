@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
+const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
+
 // Comments 조회
 export async function fetchComments(
   size: number,
@@ -27,7 +29,7 @@ export async function createCommentsPost(mistakeId: string, content: string) {
       { mistakeId, content },
       {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+          Authorization: `Bearer ${loginToken}`,
         },
       },
     );
@@ -44,7 +46,7 @@ export async function deleteComments(commentId: number) {
   try {
     const response = await api.delete(`/comment/${commentId}`, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzAzNjgzOTQ2LCJleHAiOjE3MDM4NjM5NDZ9.bzJB7QUNtXQpEZiMthw3z6_ZgB4ZDfk2yqFvRuo-VrI`,
+        Authorization: `Bearer ${loginToken}`,
       },
     });
     return response.data;
