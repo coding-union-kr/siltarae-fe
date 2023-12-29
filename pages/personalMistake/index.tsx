@@ -12,7 +12,7 @@ export default function PersonalMistake() {
   type Post = {
     id: number;
     content: string;
-    // memberName: string;
+    memberName: string;
     commentCount: number;
     likeCount: number;
   };
@@ -80,11 +80,10 @@ export default function PersonalMistake() {
         )}
         {data &&
           data.mistakes?.map((post: Post) => (
-            // FIXME: 유저명을 알 때, author 값을 바꾸기
             <ContentCard
               id={post.id}
               key={post.id}
-              author="OAuth구현 뒤 받아올 값"
+              author={post.memberName}
               content={post.content}
               comments={post.commentCount}
               like={post.likeCount}
