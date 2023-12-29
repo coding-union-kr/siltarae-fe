@@ -35,7 +35,12 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
           onChange={handleImageChange}
         />
         {userImageUrlState ? (
-          <Image src={userImageUrlState} alt="Profile" />
+          <Image
+            src={userImageUrlState}
+            alt="Profile"
+            width={100}
+            height={100}
+          />
         ) : (
           <FontAwesomeIcon
             icon={faUser}

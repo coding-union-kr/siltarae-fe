@@ -1,15 +1,45 @@
 import api from "./api";
 
-// TODO: 다른 함수 또 적을 때 지워주기
-// eslint-disable-next-line import/prefer-default-export
+const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
+
 export async function fetchTags() {
   try {
     const response = await api.get("/tags", {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyLCJleHBpcmF0aW9uIjoxODE4MDM5MDIyfQ.4S2FuDbdZyESn8YeE3rNnq1bx_RgrcLWCpbymAP5t5w`,
+        Authorization: `Bearer ${loginToken}`,
       },
     });
     return response.data.tags;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function deleteTag(id: number[]) {
+  try {
+    const response = await api.post("/tags/delete", {
+      headers: {
+        Authorization: `Bearer ${loginToken}`,
+      },
+      data: { id },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function createTag(name: string) {
+  try {
+    const response = await api.post("/tags", {
+      headers: {
+        Authorization: `Bearer ${loginToken}`,
+      },
+      data: { name },
+    });
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
