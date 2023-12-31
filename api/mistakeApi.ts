@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
-const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
-
 export async function fetchFeedPosts(
   size: number,
   page: number,
@@ -26,9 +24,6 @@ export async function fetchPersonalPosts(
 ) {
   try {
     const response = await api.get("/mistakes", {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
       params: { page, size, tag },
     });
     return response.data;
@@ -40,11 +35,7 @@ export async function fetchPersonalPosts(
 
 export async function fetchDetailedPost(id: string) {
   try {
-    const response = await api.get(`/mistakes/${id}`, {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-    });
+    const response = await api.get(`/mistakes/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -52,16 +43,11 @@ export async function fetchDetailedPost(id: string) {
   }
 }
 
-export async function createMistakePost(content: string, tags: number[]) {
+export async function createPost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-      data: {
-        tagIds: tags,
-        content,
-      },
+      tagIds: tags,
+      content,
     });
     return response.data;
   } catch (error) {
@@ -72,10 +58,7 @@ export async function createMistakePost(content: string, tags: number[]) {
 
 export async function likePost(id: number) {
   try {
-    const response = await api.post("/like", {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
+    const response = await api.post(`/like`, null, {
       params: {
         mistakeId: id,
       },
