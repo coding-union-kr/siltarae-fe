@@ -5,11 +5,10 @@ import ContentCard from "@/components/ContentCard";
 import RegisterPostModal from "@/components/RegisterPostModal";
 import SortButton from "@/components/SortButton";
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
-import Link from "next/link";
 // import SocialLoginModal from "@/components/SocialLoginModal";
 
 const SORT_POPULAR = "POPULAR";
@@ -23,7 +22,7 @@ type Post = {
 };
 
 const mistakeFeed = () => {
-  const [selectSort, setSelectSort] = useState(SORT_POPULAR);
+  const [selectSort, setSelectSort] = useState(SORT_RECENT);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const toggleSort = (sort: string) => {
@@ -37,17 +36,13 @@ const mistakeFeed = () => {
   const {
     data: posts,
     isPending,
-    refetch,
     isError,
     error,
   } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", selectSort],
     queryFn: () => fetchFeedPosts(11, 0, selectSort),
+    refetchInterval: 5000,
   });
-
-  useEffect(() => {
-    refetch();
-  }, [selectSort, refetch]);
 
   // FIXME: 무한 스크롤? 페이지네이션?
   return (
@@ -86,7 +81,6 @@ const mistakeFeed = () => {
           comments={post.commentCount}
           like={post.likeCount}
         />
-
       ))}
       {/* FIXME: 로그인 토큰이 없을 시 로그인 모달이 올라오기 */}
       {/* <SocialLoginModal/> */}
