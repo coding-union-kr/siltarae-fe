@@ -1,14 +1,20 @@
 import React from "react";
 
-type SortType = "인기순" | "최신순";
+type SortType = "POPULAR" | "FASTEST";
 
 interface SortButtonProps {
   sortType: SortType;
   currentSort: string;
+  content: string;
   onToggleSort: (sort: SortType) => void;
 }
 
-function SortButton({ sortType, currentSort, onToggleSort }: SortButtonProps) {
+function SortButton({
+  sortType,
+  currentSort,
+  onToggleSort,
+  content,
+}: SortButtonProps) {
   return (
     <button
       type="button"
@@ -19,7 +25,7 @@ function SortButton({ sortType, currentSort, onToggleSort }: SortButtonProps) {
       } font-semibold xs:text-lg text-base`}
       onClick={() => onToggleSort(sortType)}
     >
-      {sortType}
+      {content}
     </button>
   );
 }
