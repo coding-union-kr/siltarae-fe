@@ -79,15 +79,14 @@ const mistakeFeed = () => {
         </span>
       )}
       {posts?.map((post: Post) => (
-        <ContentCard
-          key={post.id}
-          id={post.id}
-          author={post.memberName}
-          content={post.content}
-          comments={post.commentCount}
-          like={post.likeCount}
-        />
-
+        <Link href={`/detailedMistakeFeed/${post.id}`} key={post.id}>
+          <ContentCard
+            author={post.memberName}
+            content={post.content}
+            comments={post.commentCount}
+            like={post.likeCount}
+          />
+        </Link>
       ))}
       {/* FIXME: 로그인 토큰이 없을 시 로그인 모달이 올라오기 */}
       {/* <SocialLoginModal/> */}

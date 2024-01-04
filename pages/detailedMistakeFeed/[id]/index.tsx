@@ -1,5 +1,5 @@
 import { fetchDetailedPost } from "@/api/mistakeApi";
-// import Comment from "@/components/Comment";
+import Comment from "@/components/Comment";
 import CommentInput from "@/components/CommentInput";
 import ContentPage from "@/components/ContentPage";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +28,7 @@ export default function DetailedMistakeFeed() {
         <span className="block px-5 pt-5 font-bold text-[#856E69] text-[20px]">
           댓글 {data?.commentCount}개
         </span>
-        {/* <Comment /> */}
+        <Comment />
         <CommentInput />
       </section>
     </div>
