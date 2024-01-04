@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { likePost } from "@/api/mistakeApi";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import Avatar from "./Avatar";
 import LikeButton from "./LikeButton";
@@ -24,6 +24,13 @@ function ContentCard({
     mutationFn: () => likePost(id),
   });
 
+  const [likeCount, setLikeCount] = useState(like);
+
+  const handleLikeClick = () => {
+    setLikeCount((prev) => prev + 1);
+    mutate();
+  };
+
   return (
     <Link href={`/detailedMistakeFeed/${id}`}>
       <article className="card w-[20rem] xs:w-[28rem] bg-white text-neutral-content shadow-md shadow-slate-300 xs:p-6 p-5 my-3">
@@ -39,7 +46,7 @@ function ContentCard({
         </p>
         <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">
           댓글 {comments} 개
-          <LikeButton count={like} onLikeClick={mutate} />
+          <LikeButton count={likeCount} onLikeClick={handleLikeClick} />
         </section>
         <div />
       </article>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { MouseEvent, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createMistakePost } from "@/api/mistakeApi";
+import { createPost } from "@/api/mistakeApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
@@ -60,14 +60,14 @@ export default function RegisterPostModal({
     error,
   } = useMutation({
     mutationFn: () =>
-      createMistakePost(
+      createPost(
         content,
         selectedTags.map((tag) => tag.id),
       ),
     onSuccess: () => {
       setTimeout(() => {
         toggleModal();
-      }, 5000);
+      }, 500);
     },
   });
 
