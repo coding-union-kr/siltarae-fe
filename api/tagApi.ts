@@ -12,9 +12,7 @@ export async function fetchTags() {
 
 export async function deleteTag(id: number[]) {
   try {
-    const response = await api.post("/tags/delete", {
-      id,
-    });
+    const response = await api.post("/tags/delete", id);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -15,6 +15,7 @@ export default function PersonalMistake() {
     memberName: string;
     commentCount: number;
     likeCount: number;
+    tags: Tag[];
   };
 
   type Tag = {
@@ -81,9 +82,9 @@ export default function PersonalMistake() {
         {data &&
           data.mistakes?.map((post: Post) => (
             <ContentCard
+              tags={post.tags}
               id={post.id}
               key={post.id}
-              author={post.memberName}
               content={post.content}
               comments={post.commentCount}
               like={post.likeCount}

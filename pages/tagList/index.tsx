@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteTag, fetchTags } from "@/api/tagApi";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 export default function TagList() {
@@ -11,6 +11,8 @@ export default function TagList() {
     id: number;
     name: string;
   };
+
+  const queryClient = useQueryClient();
 
   const {
     data: tags,
@@ -25,6 +27,9 @@ export default function TagList() {
   const [activeTooltip, setActiveTooltip] = React.useState<number | null>(null);
   const { mutate } = useMutation({
     mutationFn: (ids: number[]) => deleteTag(ids),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tags"] });
+    },
   });
   const toggleTooltip = (tagId: number) => {
     setActiveTooltip((prev) => (prev === tagId ? null : tagId));
