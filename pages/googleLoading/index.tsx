@@ -10,23 +10,16 @@ export default function GoogleLoading() {
           `https://api-siltarae.me/api/v1/login/google`,
           { authCode },
         );
-
+        console.log(response);
         // 엑세스 토큰 받아오기
         const { accessToken } = response.data;
-        localStorage.setItem("access_token", accessToken);
+        console.log(accessToken);
+        // localStorage.setItem("access_token", accessToken);
+        // TODO : 백엔드에서 accessToken을 받아온걸 쿠키로 저장해야합니다.
 
-        // 사용자 정보 요청
-        const userInfo = await axios.get(
-          `https://www.googleapis.com/oauth2/v1/userinfo`,
-          {
-            headers: {
-              authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-        return console.log(userInfo);
+        // TODO : 다 완성 되면 router 추가해야함
       } catch (err) {
-        return console.log("err=", err);
+        console.log("에러발생 :", err);
       }
     }
     loading();
