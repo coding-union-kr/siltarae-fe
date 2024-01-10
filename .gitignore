@@ -43,3 +43,6 @@ next-env.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# 구글 로그인
+.env

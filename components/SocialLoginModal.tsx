@@ -27,7 +27,7 @@ function SocialLoginModal() {
             ✕
           </button>
         </div>
-        <button className="btn w-auto" type="button">
+        <button className="btn w-auto" type="button" onClick={loginHandler}>
           <FontAwesomeIcon icon={faGoogle} />
           구글 계정으로 계속하기
         </button>

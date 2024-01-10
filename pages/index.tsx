@@ -89,6 +89,7 @@ const mistakeFeed = () => {
           <RegisterPostModal toggleModal={toggleRegisterModal} />
         ) : null}
       </AnimatePresence>
+      <SocialLoginModal isModalOpen onClose={onClose} />
     </div>
   );
 };

@@ -17,7 +17,6 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   const { mutate } = useMutation({
     mutationFn: () => likePost(data.id),
   });
-
   const [likeCount, setLikeCount] = useState<number>(data?.likeCount);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -27,7 +26,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
     setIsLiked(!isLiked);
     mutate();
   };
-
+  
   return (
     <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
