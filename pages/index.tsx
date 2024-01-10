@@ -9,7 +9,6 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
-import SocialLoginModal from "@/components/SocialLoginModal";
 // import SocialLoginModal from "@/components/SocialLoginModal";
 
 const SORT_POPULAR = "POPULAR";
@@ -42,7 +41,6 @@ const mistakeFeed = () => {
   } = useQuery({
     queryKey: ["posts", selectSort],
     queryFn: () => fetchFeedPosts(11, 0, selectSort),
-    refetchInterval: 5000,
   });
 
   // FIXME: 무한 스크롤? 페이지네이션?

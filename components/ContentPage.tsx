@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
 import { likePost } from "@/api/mistakeApi";
@@ -17,7 +17,16 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   const { mutate } = useMutation({
     mutationFn: () => likePost(data.id),
   });
+  const [likeCount, setLikeCount] = useState<number>(data?.likeCount);
+  const [isLiked, setIsLiked] = useState(false);
 
+  const handleLikeClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    e.preventDefault();
+    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+    setIsLiked(!isLiked);
+    mutate();
+  };
+  
   return (
     <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
@@ -42,7 +51,11 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
       </p>
 
       <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.2 }}>
-        <LikeButton count={data?.likeCount} onLikeClick={mutate} />
+        <LikeButton
+          count={likeCount}
+          onLikeClick={(e) => handleLikeClick(e)}
+          isLiked={isLiked}
+        />
       </motion.button>
       <div />
     </article>

@@ -4,8 +4,8 @@ import React from "react";
 
 interface TypeProps {
   name: string;
-  isSelected: boolean;
-  handleTagClick: () => void;
+  isSelected?: boolean;
+  handleTagClick?: () => void;
   showDeleteOption?: boolean;
 }
 
@@ -17,14 +17,18 @@ export default function Tag({
 }: TypeProps) {
   return (
     <div
-      className={`flex gap-2 items-center w-30 px-4 py-1 rounded-[20px] text-white text-sm font-semibold cursor-pointer ${
-        isSelected ? "bg-[#617b5a]" : "bg-[#9CC490]"
+      className={`flex gap-2 items-center  px-4 py-1 mr-2 rounded-[20px] text-white text-sm font-semibold cursor-pointer ${
+        isSelected
+          ? "border-primary border bg-[#f5faf3]"
+          : "border-[#A4A9B7] border bg-white"
       }`}
       onClick={handleTagClick}
     >
-      <span>{name}</span>
+      <span className={`${isSelected ? "text-primary" : "text-[#A4A9B7]"}`}>
+        {name}
+      </span>
       {showDeleteOption ? (
-        <div className="cursor-pointer">
+        <div className={`cursor-pointer ${isSelected ? "text-primary" : ""}`}>
           <FontAwesomeIcon icon={faX} size="xs" />
         </div>
       ) : (
