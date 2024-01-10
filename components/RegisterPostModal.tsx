@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { MouseEvent, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "@/api/mistakeApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +24,7 @@ export default function RegisterPostModal({
   const [content, setContent] = useState("");
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+  const queryClient = useQueryClient();
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -33,6 +34,7 @@ export default function RegisterPostModal({
     e.stopPropagation();
   };
 
+  // 선택된 태그를 핸들링하는 함수
   const handleTagClick = (tag: Tag) => {
     setSelectedTags((prevSelectedTags) => {
       const isTagSelected = prevSelectedTags.some(
@@ -52,6 +54,8 @@ export default function RegisterPostModal({
     queryFn: () => fetchTags(),
   });
 
+  // 새로운 포스트 작성하는 함수
+  // 포스트 작성 후, 최신순으로 재정렬
   const {
     mutate: newPost,
     isPending,
@@ -68,13 +72,27 @@ export default function RegisterPostModal({
       setTimeout(() => {
         toggleModal();
       }, 500);
+      queryClient.invalidateQueries({
+        queryKey: ["posts", "FASTEST"],
+      });
     },
   });
 
+  // 새로운 태그를 생성하면 바로 선택된 태그로 전환하고 전체 태그를 불러오는 API 다시호출
   const { mutate: newTag } = useMutation({
     mutationFn: (tagName: string) => createTag(tagName),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["tags"],
+      });
+      const newTag: Tag = data;
+      setSelectedTags((prevSelectedTags) => [...prevSelectedTags, newTag]);
+    },
   });
 
+  // input 이 바뀔 때마다, 태그 필터링
+  // input 이 비어있으면, 빈 배열 값으로 설정
+  // input 이 있으면, 필터링된 배열 값으로 설정
   const handleTagSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value;
 
@@ -90,6 +108,7 @@ export default function RegisterPostModal({
     }
   };
 
+  // 선택한 태그들이 앞에 가고 검색어로 필터링 된 태그는 뒤로 보여주는 함수
   const getRenderTags = () => {
     const uniqueFilteredTags = filteredTags.filter(
       (filteredTag) =>
@@ -143,6 +162,9 @@ export default function RegisterPostModal({
                 name={tag.name}
                 handleTagClick={() => handleTagClick(tag)}
                 isSelected={selectedTags.some(
+                  (selectedTag) => selectedTag.id === tag.id,
+                )}
+                showDeleteOption={selectedTags.some(
                   (selectedTag) => selectedTag.id === tag.id,
                 )}
               />
