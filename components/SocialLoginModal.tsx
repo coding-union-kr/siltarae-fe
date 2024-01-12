@@ -9,6 +9,14 @@ import React from "react";
 // { isModalOpen, onClose }: SocialLoginModalProps
 
 function SocialLoginModal() {
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const googleRedirectUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
+  const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${googleRedirectUrl}&response_type=code&scope=email profile`;
+
+  const loginHandler = () => {
+    window.location.href = googleLoginUrl;
+  };
+
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">

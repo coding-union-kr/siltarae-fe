@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
+import SocialLoginModal from "@/components/SocialLoginModal";
 // import SocialLoginModal from "@/components/SocialLoginModal";
 
 const SORT_POPULAR = "POPULAR";
@@ -89,7 +90,7 @@ const mistakeFeed = () => {
           <RegisterPostModal toggleModal={toggleRegisterModal} />
         ) : null}
       </AnimatePresence>
-      <SocialLoginModal isModalOpen onClose={onClose} />
+      <SocialLoginModal />
     </div>
   );
 };

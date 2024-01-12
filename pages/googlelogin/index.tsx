@@ -7,7 +7,7 @@ export default function GoogleLoading() {
       const authCode = new URL(window.location.href).searchParams.get("code");
       try {
         const response = await axios.post(
-          `https://api-siltarae.me/api/v1/login/google`,
+          `https://api.siltarae.me/api/v1/login/google`,
           { authCode },
         );
         console.log(response);
