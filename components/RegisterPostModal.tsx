@@ -144,7 +144,7 @@ export default function RegisterPostModal({
               placeholder="태그를 검색하세요."
               onChange={handleTagSearchChange}
               onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                if (e.key === "Enter") {
+                if (e.key === "Enter" && !e.nativeEvent.isComposing) {
                   e.preventDefault();
                   newTag(e.currentTarget.value);
                 }

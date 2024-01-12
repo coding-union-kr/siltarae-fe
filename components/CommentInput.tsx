@@ -39,7 +39,7 @@ function CommentInput() {
 
   // 댓글 엔터기능
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setToast(true);
       mutate();
       // Toast 사라지게 하는 코드
