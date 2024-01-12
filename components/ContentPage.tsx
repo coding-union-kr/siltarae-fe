@@ -26,7 +26,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
     setIsLiked(!isLiked);
     mutate();
   };
-  
+
   return (
     <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">

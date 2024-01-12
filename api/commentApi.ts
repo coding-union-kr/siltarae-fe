@@ -3,6 +3,13 @@ import api from "./api";
 
 const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
 
+type CommentDataType = {
+  memberId: number;
+  memberName: string;
+  commentId: number;
+  commentContent: string;
+};
+
 // Comments 조회
 export async function fetchComments(
   size: number,
@@ -10,9 +17,12 @@ export async function fetchComments(
   mistakeId: string,
 ) {
   try {
-    const response = await api.get("/comment", {
-      params: { size, page, mistakeId },
-    });
+    const response = await api.get<{ comments: CommentDataType[] }>(
+      "/comment",
+      {
+        params: { size, page, mistakeId },
+      },
+    );
     return response.data.comments;
   } catch (error) {
     // eslint-disable-next-line no-console
