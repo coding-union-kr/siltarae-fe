@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
@@ -13,11 +14,13 @@ export async function getUserProfile() {
 
 export async function uploadProfileImage(file: File) {
   try {
-    const response = await api.post("/member/image", {
-      data: {
+    const response = await api.post(
+      "/member/image",
+      {
         file,
       },
-    });
+      { headers: { "Content-Type": "multipart/form-data" } },
+    );
     return response.data;
   } catch (error) {
     console.error(error);
