@@ -16,9 +16,12 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: (formData) => uploadProfileImage(formData as any),
-    onSuccess: () => {
-      console.log("사진 보내기 성공!");
+    mutationFn: (formData: FormData) => uploadProfileImage(formData),
+    onSuccess: (imageUrl) => {
+      // TODO: 이미지 post로 S3로 보내고 주소까지 받기 완료.
+      // FIXME: imageUrl로 프로필 사진 업데이트 하기
+      // eslint-disable-next-line no-console
+      console.log("사진 보내기 성공!", imageUrl);
     },
     onSettled: () => {
       // 자동으로 리프레쉬 되도록 해주는 코드
@@ -27,14 +30,15 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target?.files?.[0]) {
       const uploadFile = e.target.files[0];
+      // formData로 변환해서 백엔드로 보내기
       const formData = new FormData();
       formData.append("file", uploadFile);
       mutate(formData as any);
-
       setUserImageUrlState(URL.createObjectURL(uploadFile));
     }
   };
