@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
 import SocialLoginModal from "@/components/SocialLoginModal";
-// import SocialLoginModal from "@/components/SocialLoginModal";
+// import { getUserProfile } from "@/api/userApi";
 
 const SORT_POPULAR = "POPULAR";
 const SORT_RECENT = "FASTEST";
@@ -43,6 +43,12 @@ const mistakeFeed = () => {
     queryKey: ["posts", selectSort],
     queryFn: () => fetchFeedPosts(11, 0, selectSort),
   });
+
+  // const { data: userInfo } = useQuery({
+  //   queryKey: ["user_Info"],
+  //   queryFn: () => getUserProfile(),
+  // });
+  // const userImageUrl = data?.imageUrl;
 
   // FIXME: 무한 스크롤? 페이지네이션?
   return (
