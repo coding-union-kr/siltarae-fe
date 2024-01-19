@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { getUserProfile } from "@/api/userApi";
+import { getUserProfile, updateProfileNickname } from "@/api/userApi";
 import ProfileAvatar from "@/components/ProfileAvatar";
 import {
   faArrowRightFromBracket,
@@ -9,22 +9,34 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const myPage = () => {
+  const [nickname, setNickname] = useState<string>("비어 있음");
   const [nicknameEditMode, setNicknameEditMode] = useState<boolean>(false);
-  const [nickname, setNickname] = useState<string>("");
 
   // 유저 프로필 사진, 닉네임 가져오기
   const result = useQuery({
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
   });
-
-  const userNickname = result.data?.nickname;
   const userProfileImg = result.data?.imageUrl;
+  const userNickname = result.data?.nickname;
+
+  // 프로필 닉네임 변경하기 훅
+  const { mutate } = useMutation({
+    mutationFn: () => updateProfileNickname(nickname),
+    onSuccess: () => {
+      // eslint-disable-next-line no-console
+      console.log("프로필 별명이 변경되었습니다.");
+    },
+  });
+
+  useEffect(() => {
+    setNickname(userNickname);
+  }, [userNickname]);
 
   const handleNicknameEdit = () => {
     setNicknameEditMode(true);
@@ -34,9 +46,11 @@ const myPage = () => {
     setNickname(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  // keyup으로 통일
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setNicknameEditMode(false);
+      mutate();
     }
   };
 
@@ -54,14 +68,14 @@ const myPage = () => {
             type="text"
             value={nickname}
             onChange={handleNicknameChange}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyUp}
             placeholder=""
             className="font-bold text-2xl my-4 ml-2 p-2 bg-transparent outline-[#EFEAE6] w-2/4"
             autoFocus
           />
         ) : (
           <>
-            <p className="mx-2 font-bold text-2xl my-4 w-fit">{userNickname}</p>
+            <p className="mx-2 font-bold text-2xl my-4 w-fit">{nickname}</p>
             <FontAwesomeIcon
               icon={faPencil}
               size="xs"
