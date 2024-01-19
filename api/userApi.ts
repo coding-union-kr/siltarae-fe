@@ -14,6 +14,7 @@ export async function getUserProfile() {
 }
 
 // 이미지 업로드
+// *트러블슈팅 : file을 data{}로 씌우면 안된다.
 export async function uploadProfileImage(file: FormData) {
   try {
     const response = await api.post("/member/image", file);

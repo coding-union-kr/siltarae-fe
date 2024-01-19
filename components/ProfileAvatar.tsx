@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCamera } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -17,11 +17,9 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
 
   const { mutate } = useMutation({
     mutationFn: (formData: FormData) => uploadProfileImage(formData),
-    onSuccess: (imageUrl) => {
-      // TODO: 이미지 post로 S3로 보내고 주소까지 받기 완료.
-      // FIXME: imageUrl로 프로필 사진 업데이트 하기
+    onSuccess: () => {
       // eslint-disable-next-line no-console
-      console.log("사진 보내기 성공!", imageUrl);
+      console.log("사진 업로드 성공, 프로필 사진이 변경됩니다.");
     },
     onSettled: () => {
       // 자동으로 리프레쉬 되도록 해주는 코드
@@ -35,13 +33,16 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
     e.preventDefault();
     if (e.target?.files?.[0]) {
       const uploadFile = e.target.files[0];
-      // formData로 변환해서 백엔드로 보내기
+      // formData로 변환해서 백엔드로 post 보내기
       const formData = new FormData();
       formData.append("file", uploadFile);
       mutate(formData as any);
-      setUserImageUrlState(URL.createObjectURL(uploadFile));
     }
   };
+
+  useEffect(() => {
+    setUserImageUrlState(userImageUrl);
+  }, [userImageUrl]);
 
   return (
     <div
