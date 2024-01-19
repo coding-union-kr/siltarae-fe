@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
@@ -25,7 +26,6 @@ export async function fetchComments(
     );
     return response.data.comments;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
     throw error;
   }
@@ -45,7 +45,6 @@ export async function createComments(mistakeId: string, content: string) {
     );
     return response.data;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
     throw error;
   }
@@ -61,7 +60,6 @@ export async function deleteComments(commentId: number) {
     });
     return response.data;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
     throw error;
   }

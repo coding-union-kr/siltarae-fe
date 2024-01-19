@@ -28,10 +28,6 @@ const myPage = () => {
   // 프로필 닉네임 변경하기 훅
   const { mutate } = useMutation({
     mutationFn: () => updateProfileNickname(nickname),
-    onSuccess: () => {
-      // eslint-disable-next-line no-console
-      console.log("프로필 별명이 변경되었습니다.");
-    },
   });
 
   useEffect(() => {

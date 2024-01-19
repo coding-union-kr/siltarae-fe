@@ -36,7 +36,7 @@ function ProfileAvatar({ userImageUrl }: AvatarProps) {
       // formData로 변환해서 백엔드로 post 보내기
       const formData = new FormData();
       formData.append("file", uploadFile);
-      mutate(formData as any);
+      mutate(formData);
     }
   };
 

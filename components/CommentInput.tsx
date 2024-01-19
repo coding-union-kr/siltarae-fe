@@ -7,16 +7,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "./Avatar";
 
 function CommentInput() {
-  const [toast, setToast] = useState(false);
   const queryCilent = useQueryClient();
   const router = useRouter();
   const { id } = router.query;
+  const [showToast, setShowToast] = useState(false);
   const [content, setContent] = useState("");
-  // 댓글 추가기능
+
+  // 댓글 추가하기 기능
   const { mutate, isError, error, isSuccess } = useMutation({
     mutationFn: () => createComments(id as string, content),
     onSuccess: () => {
       setContent("");
+      // Toast 사라지게 하는 코드
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
     },
     onSettled: () => {
       // 자동으로 리프레쉬 되도록 해주는 코드
@@ -29,29 +34,21 @@ function CommentInput() {
   };
 
   const handleClick = () => {
-    setToast(true);
+    setShowToast(true);
     mutate();
-    // Toast 사라지게 하는 코드
-    setTimeout(() => {
-      setToast(false);
-    }, 3000);
   };
 
   // 댓글 엔터기능
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
-      setToast(true);
+      setShowToast(true);
       mutate();
-      // Toast 사라지게 하는 코드
-      setTimeout(() => {
-        setToast(false);
-      }, 3000);
     }
   };
 
   return (
     <div className="fixed bottom-0 border-t-[0.1px] border-[#DFE2E9] py-5 px-5 w-full max-w-[500px] backdrop-blur-md">
-      {toast && (
+      {showToast && (
         <div className="absolute flex justify-center items-center right-0 left-0 mx-auto w-auto top-[-50px]">
           {isSuccess && (
             <span className="flex justify-center items-center bg-[#9CC490]/60 w-[70%] h-16 rounded-xl">
