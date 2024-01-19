@@ -6,7 +6,6 @@ import Avatar from "./Avatar";
 import LikeButton from "./LikeButton";
 import Tag from "./Tag";
 
-
 interface ContentCardProps {
   author?: string;
   content: string;

@@ -12,7 +12,7 @@ function Avatar({ userImageUrl }: AvatarProps) {
     <div className="avatar ">
       <div className="flex items-center justify-center xs:w-11 w-9 rounded-full shadow-md shadow-slate-300 border-solid xs:border-4 border-[3px] border-white bg-white">
         {userImageUrl ? (
-          <Image src={userImageUrl} alt="Profile" />
+          <Image src={userImageUrl} alt="Profile" width={50} height={50} />
         ) : (
           <FontAwesomeIcon
             icon={faUser}
