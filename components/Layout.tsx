@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import PostHeader from "./PostHeader";
+import Seo from "./Seo";
 
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -10,6 +11,7 @@ function Layout(props: { children: React.ReactNode }) {
 
   return (
     <div id="container" className="h-auto flex justify-center">
+      <Seo />
       {router.route.includes("/detailedMistakeFeed/") ? (
         <PostHeader />
       ) : (
