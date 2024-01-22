@@ -5,6 +5,7 @@ import ContentPage from "@/components/ContentPage";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useRouter } from "next/router";
+import PostHeader from "@/components/PostHeader";
 
 export default function DetailedMistakeFeed() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function DetailedMistakeFeed() {
 
   return (
     <div className="w-full h-auto bg-white pb-16">
+      <PostHeader />
       <ContentPage
         data={data}
         isPending={isPending}
