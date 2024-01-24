@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
 import SocialLoginModal from "@/components/SocialLoginModal";
+import PostHeader from "@/components/PostHeader";
 // import { getUserProfile } from "@/api/userApi";
 
 const SORT_POPULAR = "POPULAR";

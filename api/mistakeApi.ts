@@ -61,6 +61,19 @@ export async function createPost(content: string, tags: number[]) {
   }
 }
 
+// 실수 삭제
+export async function deletePost(mistakeId: number) {
+  try {
+    const response = await api.post("/mistakes/delete", {
+      mistakeId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 // 좋아요 등록/삭제 post
 export async function likePost(id: number) {
   try {

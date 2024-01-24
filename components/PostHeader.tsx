@@ -10,7 +10,7 @@ export default function PostHeader() {
       <div className="flex flex-row justify-between items-center h-full">
         <Link
           href="/"
-          className="hover:scale-[1.1] active:scale-[0.9] hover:transition-transform active:transition-transform"
+          className="hover:scale-[1.2] active:scale-[0.9] hover:transition-transform active:transition-transform"
         >
           <FontAwesomeIcon
             icon={faAngleLeft}

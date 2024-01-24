@@ -1,27 +1,73 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { deletePost } from "@/api/mistakeApi";
+import { useRouter } from "next/router";
 
 export default function Dropdown() {
+  const id = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const { mutate } = useMutation({
+    mutationFn: () => deletePost(),
+    onSuccess: () => {
+      console.log("게시물 삭제 성공");
+    },
+  });
+
+  console.log(id.query?.id);
+  const toggleDropdown = () => {
+    setShowDropdown((prev) => !prev);
+  };
+
+  const onDeleteFeed = () => {
+    // mutate();
+    setShowDropdown(false);
+    alert("되고 있니?");
+  };
+
+  const editFeed = () => {
+    // TODO: 이후 제작 예쩡
+    // eslint-disable-next-line no-console
+    setShowDropdown(false);
+    alert("이후 만들 예정입니다.");
+  };
+
   return (
     // daisy UI - 드롭다운 적용
-    <div className="dropdown dropdown-end">
+    <section className="relative">
       <FontAwesomeIcon
         icon={faEllipsis}
         style={{ color: "#856E69" }}
-        role="button"
         size="xl"
-        className="bg-transparent border-none hover:scale-[1.1] active:scale-[0.9] hover:transition-transform active:transition-transform"
-        tabIndex={0}
+        className="hover:scale-[1.2] active:scale-[0.9] hover:transition-transform active:transition-transform cursor-pointer"
+        onClick={toggleDropdown}
       />
-      <ul className="dropdown-content p-3 w-20 h-auto z-[1] menu bg-base-100 rounded-box flex-column align-center justify-evenly font-bold text-[#856E69]">
-        <li className="text-center p-2 rounded-box hover:bg-[#EBE2DD] hover:transition-colors cursor-not-allowed">
-          수정
-        </li>
-        <li className="text-center p-2 rounded-box hover:bg-[#EBE2DD] hover:transition-colors cursor-pointer">
-          삭제
-        </li>
-      </ul>
-    </div>
+      {showDropdown && (
+        <motion.ul
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute right-0 top-[4vh] p-3 w-24 h-auto z-[1] bg-[#F0EEED] shadow rounded-[15px] flex-column align-center gap-1 justify-evenly font-semibold text-[#856E69]"
+        >
+          <li>
+            <span
+              onClick={editFeed}
+              className="block w-full p-2 rounded-md text-center cursor-pointer hover:bg-[#F9F9F8] hover:transition-all"
+            >
+              수정
+            </span>
+          </li>
+          <li>
+            <span
+              onClick={onDeleteFeed}
+              className="block w-full p-2 rounded-md text-center cursor-pointer hover:bg-[#F9F9F8] hover:transition-colors"
+            >
+              삭제
+            </span>
+          </li>
+        </motion.ul>
+      )}
+    </section>
   );
 }
