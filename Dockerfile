@@ -8,8 +8,8 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn build
-
 RUN yarn add next
+
+RUN yarn build
 
 CMD ["yarn", "start"]
