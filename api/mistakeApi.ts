@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-console */
 import api from "./api";
 
+// 실수 피드 조회 get
 export async function fetchFeedPosts(
   size: number,
   page: number,
@@ -17,6 +19,7 @@ export async function fetchFeedPosts(
   }
 }
 
+// 개인 실수 피드 get
 export async function fetchPersonalPosts(
   page: number,
   size: number,
@@ -33,6 +36,7 @@ export async function fetchPersonalPosts(
   }
 }
 
+// 상세 실수 조회 get
 export async function fetchDetailedPost(id: string) {
   try {
     const response = await api.get(`/mistakes/${id}`);
@@ -43,6 +47,7 @@ export async function fetchDetailedPost(id: string) {
   }
 }
 
+// 실수 등록 post
 export async function createPost(content: string, tags: number[]) {
   try {
     const response = await api.post("/mistakes", {
@@ -56,6 +61,7 @@ export async function createPost(content: string, tags: number[]) {
   }
 }
 
+// 좋아요 등록/삭제 post
 export async function likePost(id: number) {
   try {
     const response = await api.post(`/like`, null, {

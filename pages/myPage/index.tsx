@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/rules-of-hooks */
+import { getUserProfile, updateProfileNickname } from "@/api/userApi";
 import ProfileAvatar from "@/components/ProfileAvatar";
 import {
   faArrowRightFromBracket,
@@ -8,12 +9,30 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const myPage = () => {
+  const [nickname, setNickname] = useState<string>("비어 있음");
   const [nicknameEditMode, setNicknameEditMode] = useState<boolean>(false);
-  const [nickname, setNickname] = useState<string>("");
+
+  // 유저 프로필 사진, 닉네임 가져오기
+  const result = useQuery({
+    queryKey: ["user_Info"],
+    queryFn: () => getUserProfile(),
+  });
+  const userProfileImg = result.data?.imageUrl;
+  const userNickname = result.data?.nickname;
+
+  // 프로필 닉네임 변경하기 훅
+  const { mutate } = useMutation({
+    mutationFn: () => updateProfileNickname(nickname),
+  });
+
+  useEffect(() => {
+    setNickname(userNickname);
+  }, [userNickname]);
 
   const handleNicknameEdit = () => {
     setNicknameEditMode(true);
@@ -23,15 +42,17 @@ const myPage = () => {
     setNickname(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+  // keyup으로 통일
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setNicknameEditMode(false);
+      mutate();
     }
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-full xs:my-10 my-5">
-      <ProfileAvatar />
+      <ProfileAvatar userImageUrl={userProfileImg} />
       <button
         type="button"
         className="font-bold text-2xl my-4 flex items-center justify-center"
@@ -43,7 +64,7 @@ const myPage = () => {
             type="text"
             value={nickname}
             onChange={handleNicknameChange}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyUp}
             placeholder=""
             className="font-bold text-2xl my-4 ml-2 p-2 bg-transparent outline-[#EFEAE6] w-2/4"
             autoFocus
@@ -53,6 +74,7 @@ const myPage = () => {
             <p className="mx-2 font-bold text-2xl my-4 w-fit">{nickname}</p>
             <FontAwesomeIcon
               icon={faPencil}
+              size="xs"
               className="hidden xs:visible hover:text-amber-800"
             />
           </>

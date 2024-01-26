@@ -7,13 +7,6 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "./Avatar";
 
-type CommentDataType = {
-  memberId: number;
-  memberName: string;
-  commentId: number;
-  commentContent: string;
-};
-
 function Comment() {
   const queryCilent = useQueryClient();
   const router = useRouter();
@@ -59,7 +52,7 @@ function Comment() {
             : "댓글을 불러오는데 실패했습니다. 새로고침 해주세요."}
         </span>
       )}
-      {comments?.map((comment: CommentDataType) => (
+      {comments?.map((comment) => (
         <div
           key={comment.commentId}
           className="relative flex flex-row gap-2 items-center px-8 py-5"
