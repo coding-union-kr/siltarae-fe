@@ -1,34 +1,48 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { loginWithGoogle } from "@/api/authApi";
+import router from "next/router";
+import axiosInstance from "@/api/api";
+import { useDispatch } from "react-redux";
+import { logIn } from "@/features/auth/authReducer";
 
 export default function GoogleLoading() {
-  useEffect(() => {
-    async function loading() {
+  const dispatch = useDispatch();
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: () => {
       const authCode = new URL(window.location.href).searchParams.get("code");
-      try {
-        const response = await axios.post(
-          `https://api.siltarae.me/api/v1/login/google`,
-          { authCode },
-        );
-        console.log(response);
-        // 엑세스 토큰 받아오기
-        const { accessToken } = response.data;
-        console.log(accessToken);
-        // localStorage.setItem("access_token", accessToken);
-        // TODO : 백엔드에서 accessToken을 받아온걸 쿠키로 저장해야합니다.
-
-        // TODO : 다 완성 되면 router 추가해야함
-      } catch (err) {
-        console.log("에러발생 :", err);
+      if (!authCode) {
+        throw new Error("authCode 가 정확하지 않습니다.");
       }
-    }
-    loading();
-  }, []);
+      return loginWithGoogle(authCode);
+    },
+    onSuccess: (data) => {
+      const { accessToken } = data;
+      const expiryDays = 1;
+      const date = new Date();
+      date.setTime(date.getTime() + expiryDays * 24 * 60 * 60 * 1000);
+      const expires = `expires=${date.toUTCString()}`;
+      document.cookie = `accessToken=${accessToken};${expires};path=/`;
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+      dispatch(logIn());
+      router.push("/");
+    },
+  });
+
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
 
   return (
     <div className="flex justify-center h-screen">
-      <div className="mt-32 text-3xl font-bold italic text-center text-blue-400">
-        <p>Google Login...중</p>
+      <div className="mt-32 text-xl font-bold italic text-center">
+        {isPending && <p>Google Login...중</p>}
+        {isError && (
+          <p>
+            에러가 발생했습니다. <br />
+            {error.message}
+          </p>
+        )}
       </div>
     </div>
   );
