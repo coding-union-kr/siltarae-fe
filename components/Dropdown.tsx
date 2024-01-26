@@ -7,31 +7,32 @@ import { deletePost } from "@/api/mistakeApi";
 import { useRouter } from "next/router";
 
 export default function Dropdown() {
-  const id = useRouter();
+  const router = useRouter();
+  const pageId = Number(router.query?.id); // 게시물 Id
   const [showDropdown, setShowDropdown] = useState(false);
+
+  // 게시물 삭제 훅
   const { mutate } = useMutation({
-    mutationFn: () => deletePost(),
+    mutationFn: () => deletePost(pageId),
     onSuccess: () => {
-      console.log("게시물 삭제 성공");
+      router.back();
     },
   });
 
-  console.log(id.query?.id);
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
   };
 
   const onDeleteFeed = () => {
-    // mutate();
+    mutate();
     setShowDropdown(false);
-    alert("되고 있니?");
   };
 
   const editFeed = () => {
-    // TODO: 이후 제작 예쩡
-    // eslint-disable-next-line no-console
     setShowDropdown(false);
+    // eslint-disable-next-line no-alert
     alert("이후 만들 예정입니다.");
+    // TODO: 이후 제작 예쩡
   };
 
   return (

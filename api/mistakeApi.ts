@@ -64,9 +64,7 @@ export async function createPost(content: string, tags: number[]) {
 // 실수 삭제
 export async function deletePost(mistakeId: number) {
   try {
-    const response = await api.post("/mistakes/delete", {
-      mistakeId,
-    });
+    const response = await api.post("/mistakes/delete", [mistakeId]);
     return response.data;
   } catch (error) {
     console.error(error);
