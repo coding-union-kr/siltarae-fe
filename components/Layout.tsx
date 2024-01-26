@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import Header from "./Header";
 import NavBar from "./NavBar";
-import PostHeader from "./PostHeader";
 import Seo from "./Seo";
 
 function Layout(props: { children: React.ReactNode }) {
@@ -12,11 +11,7 @@ function Layout(props: { children: React.ReactNode }) {
   return (
     <div id="container" className="h-auto flex justify-center">
       <Seo />
-      {router.route.includes("/detailedMistakeFeed/") ? (
-        <PostHeader />
-      ) : (
-        <Header />
-      )}
+      {router.route.includes("/detailedMistakeFeed/") ? null : <Header />}
       <div className="my-16 w-[500px] max-w-[500px] bg-[#FDF8F3]">
         {children}
       </div>
