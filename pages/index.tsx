@@ -10,7 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
 import SocialLoginModal from "@/components/SocialLoginModal";
-// import { getUserProfile } from "@/api/userApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const SORT_POPULAR = "POPULAR";
 const SORT_RECENT = "FASTEST";
@@ -23,8 +24,10 @@ type Post = {
 };
 
 const mistakeFeed = () => {
-  const [selectSort, setSelectSort] = useState(SORT_RECENT);
+  const [selectSort, setSelectSort] = useState(SORT_POPULAR);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showSocialLoginModal, setShowSocialLoginModal] = useState(false);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const toggleSort = (sort: string) => {
     setSelectSort(sort);
@@ -32,6 +35,14 @@ const mistakeFeed = () => {
 
   const toggleRegisterModal = () => {
     setShowRegisterModal((prev) => !prev);
+  };
+
+  const toggleSocialLoginModal = (event: React.MouseEvent<HTMLElement>) => {
+    if (!isLoggedIn) {
+      event.preventDefault();
+      event.stopPropagation();
+      setShowSocialLoginModal((prev) => !prev);
+    }
   };
 
   const {
@@ -44,15 +55,11 @@ const mistakeFeed = () => {
     queryFn: () => fetchFeedPosts(11, 0, selectSort),
   });
 
-  // const { data: userInfo } = useQuery({
-  //   queryKey: ["user_Info"],
-  //   queryFn: () => getUserProfile(),
-  // });
-  // const userImageUrl = data?.imageUrl;
-
-  // FIXME: 무한 스크롤? 페이지네이션?
   return (
     <div className="flex justify-center items-center flex-col my-4 mb-20 relative">
+      {showSocialLoginModal ? (
+        <SocialLoginModal toggleModal={toggleSocialLoginModal} />
+      ) : null}
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
           sortType={SORT_POPULAR}
@@ -86,17 +93,15 @@ const mistakeFeed = () => {
           content={post.content}
           comments={post.commentCount}
           like={post.likeCount}
+          onClick={(event) => toggleSocialLoginModal(event)}
         />
       ))}
-      {/* FIXME: 로그인 토큰이 없을 시 로그인 모달이 올라오기 */}
-      {/* <SocialLoginModal/> */}
       <AddPostButton toggleModal={toggleRegisterModal} />
       <AnimatePresence>
         {showRegisterModal ? (
           <RegisterPostModal toggleModal={toggleRegisterModal} />
         ) : null}
       </AnimatePresence>
-      <SocialLoginModal />
     </div>
   );
 };

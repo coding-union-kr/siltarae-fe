@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import myReducer from "./userReducer";
+import authReducer from "../features/auth/authReducer";
 
-// TODO: 리덕스 구현 필요(현재는 test 코드)
 export const store = configureStore({
-  reducer: { myReducer },
+  reducer: {
+    auth: authReducer,
+  },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export default store;

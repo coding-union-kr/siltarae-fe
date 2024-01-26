@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from "react";
 import { likePost } from "@/api/mistakeApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +14,7 @@ interface ContentCardProps {
   like: number;
   id: number;
   tags?: TagType[];
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 type TagType = {
@@ -27,6 +29,7 @@ function ContentCard({
   like = 0,
   id,
   tags,
+  onClick,
 }: ContentCardProps) {
   const queryClient = useQueryClient();
 
@@ -51,7 +54,10 @@ function ContentCard({
 
   return (
     <Link href={`/detailedMistakeFeed/${id}`}>
-      <article className="card w-[20rem] xs:w-[28rem] bg-white text-neutral-content shadow-md shadow-slate-300 xs:p-6 p-5 my-3">
+      <article
+        className="card w-[20rem] xs:w-[28rem] bg-white text-neutral-content shadow-md shadow-slate-300 xs:p-6 p-5 my-3"
+        onClick={onClick}
+      >
         {author && (
           <section className="flex items-center mb-3">
             <Avatar />
