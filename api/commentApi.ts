@@ -2,8 +2,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from "./api";
 
-const loginToken = process.env.NEXT_PUBLIC_LOGIN_TOKEN;
-
 type CommentDataType = {
   memberId: number;
   memberName: string;
@@ -34,15 +32,7 @@ export async function fetchComments(
 // Comments 추가
 export async function createComments(mistakeId: string, content: string) {
   try {
-    const response = await api.post(
-      `/comment`,
-      { mistakeId, content },
-      {
-        headers: {
-          Authorization: `Bearer ${loginToken}`,
-        },
-      },
-    );
+    const response = await api.post(`/comment`, { mistakeId, content });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -53,11 +43,7 @@ export async function createComments(mistakeId: string, content: string) {
 // Comments 삭제
 export async function deleteComments(commentId: number) {
   try {
-    const response = await api.delete(`/comment/${commentId}`, {
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-    });
+    const response = await api.delete(`/comment/${commentId}`);
     return response.data;
   } catch (error) {
     console.error(error);
