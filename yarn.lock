@@ -5053,6 +5053,7 @@ __metadata:
     prettier: "npm:3.1.0"
     react: "npm:^18"
     react-dom: "npm:^18"
+    react-intersection-observer: "npm:^9.5.3"
     react-redux: "npm:^9.0.4"
     tailwindcss: "npm:^3.3.0"
     typescript: "npm:^5.3.3"
@@ -5738,6 +5739,15 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer@npm:^9.5.3":
+  version: 9.5.3
+  resolution: "react-intersection-observer@npm:9.5.3"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 0a4be6262e5944c6f72448029dc28dd14c8b59142f8f24a0c33997ef39c98e9b10f069c2789de0cb79b8a2995f22ba043ce48403a565f6556de982fde456d0f6
   languageName: node
   linkType: hard
 
