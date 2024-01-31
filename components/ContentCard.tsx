@@ -8,6 +8,7 @@ import LikeButton from "./LikeButton";
 import Tag from "./Tag";
 
 interface ContentCardProps {
+  innerRef?: React.Ref<HTMLParagraphElement>;
   author?: string;
   content: string;
   comments: number;
@@ -23,6 +24,7 @@ type TagType = {
 };
 
 function ContentCard({
+  innerRef,
   author,
   content = "내용 없음",
   comments = 0,
@@ -56,6 +58,7 @@ function ContentCard({
     <Link href={`/detailedMistakeFeed/${id}`}>
       <article
         className="card w-[20rem] xs:w-[28rem] bg-white text-neutral-content shadow-md shadow-slate-300 xs:p-6 p-5 my-3"
+        ref={innerRef}
         onClick={onClick}
       >
         {author && (
@@ -66,13 +69,11 @@ function ContentCard({
             </h3>
           </section>
         )}
-
         {tags && (
           <div className="flex mb-4">
             {tags?.map((tag) => <Tag key={tag?.id} name={tag.name} />)}
           </div>
         )}
-
         <p className="text-sm xs:text-base text-[#5C4F4D] leading-normal break-keep">
           {content}
         </p>

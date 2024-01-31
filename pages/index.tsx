@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
 import AddPostButton from "@/components/AddPostButton";
@@ -5,13 +6,15 @@ import ContentCard from "@/components/ContentCard";
 import RegisterPostModal from "@/components/RegisterPostModal";
 import SortButton from "@/components/SortButton";
 import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchFeedPosts } from "@/api/mistakeApi";
 import { AxiosError } from "axios";
 import SocialLoginModal from "@/components/SocialLoginModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useInView } from "react-intersection-observer";
+import error from "next/error";
 
 const SORT_POPULAR = "POPULAR";
 const SORT_RECENT = "FASTEST";
@@ -45,15 +48,30 @@ const mistakeFeed = () => {
     }
   };
 
+  const { ref, inView } = useInView();
   const {
-    data: posts,
+    data,
     isPending,
     isError,
-    error,
-  } = useQuery({
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    refetch,
+  } = useInfiniteQuery({
     queryKey: ["posts", selectSort],
-    queryFn: () => fetchFeedPosts(11, 0, selectSort),
+    queryFn: async ({ pageParam }) => fetchFeedPosts(4, pageParam, selectSort),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
+      return nextPage;
+    },
   });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage, refetch]);
 
   return (
     <div className="flex justify-center items-center flex-col my-4 mb-20 relative">
@@ -75,9 +93,6 @@ const mistakeFeed = () => {
           content="최신순"
         />
       </div>
-      {isPending && (
-        <span className="loading loading-dots loading-lg text-secondary" />
-      )}
       {isError && (
         <span>
           {error instanceof AxiosError
@@ -85,17 +100,36 @@ const mistakeFeed = () => {
             : "게시글을 불러오는데 실패했습니다. 다시 시도해보세요."}
         </span>
       )}
-      {posts?.map((post: Post) => (
-        <ContentCard
-          key={post.id}
-          id={post.id}
-          author={post.memberName}
-          content={post.content}
-          comments={post.commentCount}
-          like={post.likeCount}
-          onClick={(event) => toggleSocialLoginModal(event)}
-        />
-      ))}
+      {data?.pages.map((posts: Post[]) =>
+        posts.map((post: Post, index) =>
+          posts.length === index + 1 ? (
+            <ContentCard
+              innerRef={ref}
+              key={post.id}
+              id={post.id}
+              author={post.memberName}
+              content={post.content}
+              comments={post.commentCount}
+              like={post.likeCount}
+              onClick={(event) => toggleSocialLoginModal(event)}
+            />
+          ) : (
+            <ContentCard
+              key={post.id}
+              id={post.id}
+              author={post.memberName}
+              content={post.content}
+              comments={post.commentCount}
+              like={post.likeCount}
+              onClick={(event) => toggleSocialLoginModal(event)}
+            />
+          ),
+        ),
+      )}
+      {isPending ||
+        (isFetchingNextPage && (
+          <span className="loading loading-dots loading-lg text-secondary" />
+        ))}
       <AddPostButton toggleModal={toggleRegisterModal} />
       <AnimatePresence>
         {showRegisterModal ? (
