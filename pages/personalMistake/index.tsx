@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
-import { fetchPersonalPosts } from "@/api/mistakeApi";
+import React, { useState } from "react";
+import RegisterPostModal from "@/components/RegisterPostModal";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
-import RegisterPostModal from "@/components/RegisterPostModal";
-import Tag from "@/components/Tag";
+import { fetchPersonalPosts } from "@/api/mistakeApi";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import React, { useState } from "react";
+import Tag from "@/components/Tag";
+import { fetchTags } from "@/api/tagApi";
 
 export default function PersonalMistake() {
   type Post = {
@@ -36,6 +37,11 @@ export default function PersonalMistake() {
       fetchPersonalPosts(0, 5, selectedTags.map((tag) => tag.id).join()),
   });
 
+  const { data: tagData } = useQuery({
+    queryKey: ["tags_get"],
+    queryFn: () => fetchTags(),
+  });
+
   const handleTagClick = (tag: Tag) => {
     setSelectedTags((prevSelectedTags) => {
       const isTagSelected = prevSelectedTags.some(
@@ -54,8 +60,8 @@ export default function PersonalMistake() {
     <div className="bg-[#FDF8F3] w-full mt-2 mr-16 mb-20">
       <div className="ml-6 flex">
         <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
-          {data &&
-            data?.tags?.map((tag: Tag) => (
+          {tagData &&
+            tagData?.tags?.map((tag: Tag) => (
               <Tag
                 key={tag.id}
                 name={tag.name}
@@ -68,6 +74,7 @@ export default function PersonalMistake() {
             ))}
         </div>
       </div>
+      {/* 내 실수 피드 List */}
       <div className="flex flex-col justify-end items-center ">
         {isPending && (
           <span className="loading loading-dots loading-lg text-secondary" />
@@ -91,6 +98,7 @@ export default function PersonalMistake() {
             />
           ))}
       </div>
+      {/* 실수 피드 등록 부분 */}
       <AddPostButton toggleModal={toggleRegisterPostModal} />
       {showRegisterPostModal ? (
         <RegisterPostModal toggleModal={toggleRegisterPostModal} />
