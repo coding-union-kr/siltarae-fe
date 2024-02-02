@@ -2,9 +2,9 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: [ "deploy" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "deploy" ]
+    branches: [ "develop" ]
 
 jobs:
   build-and-push:
