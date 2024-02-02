@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createComments } from "@/api/commentApi";
 import { useRouter } from "next/router";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getUserProfile } from "@/api/userApi";
 import Avatar from "./Avatar";
 
 function CommentInput() {
@@ -12,6 +13,12 @@ function CommentInput() {
   const { id } = router.query;
   const [showToast, setShowToast] = useState(false);
   const [content, setContent] = useState("");
+
+  const { data } = useQuery({
+    queryKey: ["user_Info"],
+    queryFn: () => getUserProfile(),
+  });
+  const { imageUrl } = data;
 
   // 댓글 추가하기 기능
   const { mutate, isError, error, isSuccess } = useMutation({
@@ -63,7 +70,7 @@ function CommentInput() {
         </div>
       )}
       <div className="flex items-center">
-        <Avatar />
+        <Avatar userImageUrl={imageUrl} />
         <input
           type="text"
           value={content}
