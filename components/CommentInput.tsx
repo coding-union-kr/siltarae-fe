@@ -18,7 +18,7 @@ function CommentInput() {
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
   });
-  const { imageUrl } = data;
+  const image = data?.imageUrl;
 
   // 댓글 추가하기 기능
   const { mutate, isError, error, isSuccess } = useMutation({
@@ -70,7 +70,7 @@ function CommentInput() {
         </div>
       )}
       <div className="flex items-center">
-        <Avatar userImageUrl={imageUrl} />
+        <Avatar userImageUrl={image} />
         <input
           type="text"
           value={content}
