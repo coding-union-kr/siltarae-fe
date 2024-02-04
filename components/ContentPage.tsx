@@ -19,6 +19,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   });
   const [likeCount, setLikeCount] = useState<number>(data?.likeCount);
   const [isLiked, setIsLiked] = useState(false);
+  const imgUrl = data?.memberImageUrl;
 
   const handleLikeClick = (e: React.MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   return (
     <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
-        <Avatar />
+        <Avatar userImageUrl={imgUrl} />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">
           {data?.memberName}
         </h3>

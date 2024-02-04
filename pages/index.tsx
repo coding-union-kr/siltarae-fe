@@ -21,6 +21,7 @@ const SORT_RECENT = "FASTEST";
 type Post = {
   id: number;
   memberName: string;
+  memberImageUrl: string;
   content: string;
   commentCount: number;
   likeCount: number;
@@ -110,6 +111,7 @@ const mistakeFeed = () => {
               author={post.memberName}
               content={post.content}
               comments={post.commentCount}
+              imageUrl={post.memberImageUrl}
               like={post.likeCount}
               onClick={(event) => toggleSocialLoginModal(event)}
             />
@@ -120,6 +122,7 @@ const mistakeFeed = () => {
               author={post.memberName}
               content={post.content}
               comments={post.commentCount}
+              imageUrl={post.memberImageUrl}
               like={post.likeCount}
               onClick={(event) => toggleSocialLoginModal(event)}
             />

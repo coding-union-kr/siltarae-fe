@@ -12,6 +12,7 @@ interface ContentCardProps {
   author?: string;
   content: string;
   comments: number;
+  imageUrl?: string;
   like: number;
   id: number;
   tags?: TagType[];
@@ -28,6 +29,7 @@ function ContentCard({
   author,
   content = "내용 없음",
   comments = 0,
+  imageUrl,
   like = 0,
   id,
   tags,
@@ -63,7 +65,7 @@ function ContentCard({
       >
         {author && (
           <section className="flex items-center mb-3">
-            <Avatar />
+            <Avatar userImageUrl={imageUrl} />
             <h3 className="ml-2 text-base xs:text-lg text-[#856E69] font-bold">
               {author}
             </h3>
