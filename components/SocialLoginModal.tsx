@@ -1,18 +1,24 @@
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useRouter } from "next/router";
 
 interface SocialLoginModalProps {
-  toggleModal: (event: React.MouseEvent<HTMLElement>) => void;
+  toggleModal?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 function SocialLoginModal({ toggleModal }: SocialLoginModalProps) {
+  const router = useRouter();
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const googleRedirectUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
   const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${googleRedirectUrl}&response_type=code&scope=email profile`;
 
   const loginHandler = () => {
     window.location.href = googleLoginUrl;
+  };
+
+  const onClickBack = () => {
+    router.back();
   };
 
   return (
@@ -33,7 +39,7 @@ function SocialLoginModal({ toggleModal }: SocialLoginModalProps) {
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
               type="button"
-              onClick={toggleModal}
+              onClick={onClickBack}
             >
               ✕
             </button>

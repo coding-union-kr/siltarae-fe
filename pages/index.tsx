@@ -38,7 +38,11 @@ const mistakeFeed = () => {
   };
 
   const toggleRegisterModal = () => {
-    setShowRegisterModal((prev) => !prev);
+    if (!isLoggedIn) {
+      setShowSocialLoginModal((prev) => !prev);
+    } else {
+      setShowRegisterModal((prev) => !prev);
+    }
   };
 
   const toggleSocialLoginModal = (event: React.MouseEvent<HTMLElement>) => {
