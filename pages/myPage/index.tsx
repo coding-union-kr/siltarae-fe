@@ -99,6 +99,8 @@ const myPage = () => {
             <button
               className="btn xs:w-96 w-80 xs:h-16 text-lg bg-white"
               type="button"
+              // eslint-disable-next-line no-alert
+              onClick={() => alert("추가 예정입니다 🥹")}
             >
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               로그아웃
@@ -106,6 +108,8 @@ const myPage = () => {
             <button
               className="btn xs:w-96 w-80 text-lg xs:h-16 h-10 bg-red-200 hover:bg-red-300 hover:border-red-300"
               type="button"
+              // eslint-disable-next-line no-alert
+              onClick={() => alert("추가 예정입니다 🥹")}
             >
               <FontAwesomeIcon icon={faTrash} />
               회원탈퇴
