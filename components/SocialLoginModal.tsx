@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 interface SocialLoginModalProps {
-  toggleModal: (event: React.MouseEvent<HTMLElement>) => void;
+  toggleModal?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 function SocialLoginModal({ toggleModal }: SocialLoginModalProps) {
