@@ -6,6 +6,8 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
 
+COPY .env.production .env
+
 COPY . .
 
 RUN yarn add next
