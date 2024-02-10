@@ -18,7 +18,7 @@ function SocialLoginModal({ toggleModal }: SocialLoginModalProps) {
   };
 
   const onClickBack = () => {
-    router.back();
+    router.push("/");
   };
 
   return (
