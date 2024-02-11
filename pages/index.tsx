@@ -28,7 +28,7 @@ type Post = {
 };
 
 const mistakeFeed = () => {
-  const [selectSort, setSelectSort] = useState(SORT_POPULAR);
+  const [selectSort, setSelectSort] = useState(SORT_RECENT);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSocialLoginModal, setShowSocialLoginModal] = useState(false);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
@@ -85,17 +85,17 @@ const mistakeFeed = () => {
       ) : null}
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
-          sortType={SORT_POPULAR}
-          currentSort={selectSort}
-          onToggleSort={toggleSort}
-          content="인기순"
-        />
-        <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
-        <SortButton
           sortType={SORT_RECENT}
           currentSort={selectSort}
           onToggleSort={toggleSort}
           content="최신순"
+        />
+        <div className="border-r-2 xs:h-6 h-4 mx-2 border-[#856E69]" />
+        <SortButton
+          sortType={SORT_POPULAR}
+          currentSort={selectSort}
+          onToggleSort={toggleSort}
+          content="인기순"
         />
       </div>
       {isError && (
