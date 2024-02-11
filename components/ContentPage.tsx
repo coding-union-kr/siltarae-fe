@@ -29,7 +29,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   };
 
   return (
-    <article className="w-auto min-h-72 bg-white text-neutral-content px-5 py-8">
+    <article className="w-auto min-h-[25vh] bg-white text-neutral-content px-5 py-8">
       <section className="flex items-center mb-3">
         <Avatar userImageUrl={imgUrl} />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">
@@ -50,7 +50,6 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
         )}
         {data?.content}
       </p>
-
       <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.2 }}>
         <LikeButton
           count={likeCount}

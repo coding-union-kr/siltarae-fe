@@ -55,11 +55,11 @@ export default function PersonalMistake() {
   };
 
   return (
-    <div className="bg-[#FDF8F3] w-full mt-2 mr-16 mb-20">
+    <div className="w-full mt-16 mb-20">
       {isLoggedIn ? (
         <>
-          <div className="ml-6 flex">
-            <div className="flex flex-row flex-wrap gap-2 mt-4 mr-2">
+          <div className="flex">
+            <div className="flex flex-row flex-wrap gap-2 mt-4">
               {data &&
                 data?.tags?.map((tag: Tag) => (
                   <Tag

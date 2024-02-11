@@ -18,7 +18,7 @@ export default function DetailedMistakeFeed() {
   });
 
   return (
-    <div className="w-full h-auto bg-white pb-16">
+    <div className="w-full h-full bg-white pt-16 pb-20">
       <PostHeader />
       <ContentPage
         data={data}
@@ -27,7 +27,7 @@ export default function DetailedMistakeFeed() {
         error={error}
       />
       <section className="border-t-[0.3px] border-[#DFE2E9]">
-        <span className="block px-5 pt-5 font-bold text-[#856E69] text-[20px]">
+        <span className="block px-5 pt-5 font-semibold text-[#856E69]">
           댓글 {data?.commentCount}개
         </span>
         <Comment />
