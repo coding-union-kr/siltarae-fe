@@ -7,7 +7,7 @@ import Dropdown from "./Dropdown";
 export default function PostHeader() {
   const router = useRouter();
   return (
-    <section className="fixed top-0 bg-white h-16 p-5 w-full max-w-[500px] border-b border-b-gray-300 z-50">
+    <section className="fixed top-0 bg-white h-16 p-5 w-full max-w-[500px] bg-white/50 backdrop-blur-md z-50">
       <div className="flex flex-row justify-between items-center h-full">
         <div
           onClick={() => router.back()}
