@@ -71,7 +71,7 @@ export default function RegisterPostModal({
     onSuccess: () => {
       setTimeout(() => {
         toggleModal();
-      }, 500);
+      }, 1000);
       queryClient.invalidateQueries({
         queryKey: ["posts", "FASTEST"],
       });
@@ -182,10 +182,18 @@ export default function RegisterPostModal({
             minLength={10}
             maxLength={280}
           />
-          {isSuccess && <span>게시글 작성이 완료되었습니다.</span>}
-          {isPending && <span>로딩중...</span>}
+          {isSuccess && (
+            <span className="right-0 left-0 mx-auto pt-3 text-[#9CC490] text-center font-semibold">
+              게시글 작성이 완료되었습니다.
+            </span>
+          )}
+          {isPending && (
+            <span className="right-0 left-0 mx-auto pt-3 text-blue-400 text-center font-semibold">
+              로딩중...
+            </span>
+          )}
           {isError && (
-            <span className="pl-2 pt-2 text-red-600 font-semibold">
+            <span className="right-0 left-0 mx-auto pt-3 text-red-600 text-center font-semibold">
               {error instanceof AxiosError
                 ? error?.response?.data.message
                 : "게시글 작성에 실패했습니다. 다시 시도해보세요."}
