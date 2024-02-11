@@ -34,3 +34,15 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_REPO }}:${{ secrets.TAG }}
+
+      - name: Deploy IAM Access
+        if: contains(github.ref, 'develop')
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.DEPLOY_IAM_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEPLOY_IAM_SECRET_ACCESS_KEY_ID }}
+          aws-region: ${{ secrets.REGION }}
+
+      - name: Code Deploy
+        if: contains(github.ref, 'develop')
+        run: aws deploy create-deployment --application-name ${{ secrets.DEPLOY_APPLICATION_NAME }} --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name ${{ secrets.DEPLOY_GROUP }} --s3-location bucket=${{ secrets.DEPLOY_S3_BUCKET }},key=${{ secrets.DEPLOY_S3_KEY }},bundleType=zip
