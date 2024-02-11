@@ -79,7 +79,7 @@ const mistakeFeed = () => {
   }, [inView, hasNextPage, fetchNextPage, refetch]);
 
   return (
-    <div className="flex justify-center items-center flex-col my-4 mb-20 relative">
+    <div className="flex justify-center items-center flex-col my-4 mt-16 mb-20 relative">
       {showSocialLoginModal ? (
         <SocialLoginModal toggleModal={toggleSocialLoginModal} />
       ) : null}

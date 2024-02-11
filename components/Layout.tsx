@@ -9,12 +9,13 @@ function Layout(props: { children: React.ReactNode }) {
   const router = useRouter();
 
   return (
-    <div id="container" className="h-auto flex justify-center">
+    <div
+      id="container"
+      className="h-full min-h-screen flex justify-center bg-[#FDF8F3]"
+    >
       <Seo />
       {router.route.includes("/detailedMistakeFeed/") ? null : <Header />}
-      <div className="my-16 w-[500px] max-w-[500px] bg-[#FDF8F3]">
-        {children}
-      </div>
+      <div className="w-[500px] max-w-[500px] ">{children}</div>
       {router.route.includes("/detailedMistakeFeed/") ? null : <NavBar />}
     </div>
   );

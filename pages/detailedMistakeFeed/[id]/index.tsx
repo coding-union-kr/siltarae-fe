@@ -18,7 +18,7 @@ export default function DetailedMistakeFeed() {
   });
 
   return (
-    <div className="w-full h-auto bg-white pb-16">
+    <div className="w-full h-full bg-white pt-16 pb-20">
       <PostHeader />
       <ContentPage
         data={data}
