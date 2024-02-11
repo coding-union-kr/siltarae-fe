@@ -2,9 +2,9 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "deploy" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "deploy" ]
 
 jobs:
   build-and-push:
@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Make .env.production
+        run: |
+          touch ./.env.production
+          echo "${{ secrets.ENV_PROD }}" > ./.env.production
+        shell: bash
 
       - name: Login to DockerHub
         if: contains(github.ref, 'develop')

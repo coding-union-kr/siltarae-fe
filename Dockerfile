@@ -13,9 +13,6 @@ RUN yarn install
 # 어플리케이션 파일 복사
 COPY . .
 
-# .env.production 파일을 복사하여 .env 파일로 사용
-COPY .env.production .env.production
-
 RUN yarn add next
 
 # 빌드
