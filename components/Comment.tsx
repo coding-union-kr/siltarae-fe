@@ -55,24 +55,26 @@ function Comment() {
       {comments?.map((comment) => (
         <div
           key={comment.commentId}
-          className="relative flex flex-row gap-2 items-center px-8 py-5"
+          className="relative flex flex-row gap-4 items-center px-5 py-5"
         >
           <Avatar />
-          <div className="ml-2 mt-1">
+          <div className="ml-2 mx-1">
             <h3 className="text-lg text-[#856E69] font-bold mb-2">
               {comment.memberName}
             </h3>
-            <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify max-w-[500px]">
+            <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify max-w-[500px] mb-1">
               {comment.commentContent}
             </p>
           </div>
-          <FontAwesomeIcon
-            icon={faX}
-            size="xs"
-            color="#856E69"
-            onClick={() => onClickDelete(comment.commentId)}
-            className="absolute right-10 cursor-pointer hover:text-[#EBDDCC]"
-          />
+          <div className="absolute right-8 m-2">
+            <FontAwesomeIcon
+              icon={faX}
+              size="xs"
+              color="#856E69"
+              onClick={() => onClickDelete(comment.commentId)}
+              className="cursor-pointer hover:text-[#EBDDCC]"
+            />
+          </div>
         </div>
       ))}
     </div>
