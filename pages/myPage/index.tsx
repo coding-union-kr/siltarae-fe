@@ -55,38 +55,42 @@ const myPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-full xs:my-10 my-5">
+    <div className="flex flex-col items-center justify-center h-full pt-16 pb-20 gap-10">
       {isLoggedIn ? (
         <>
-          <ProfileAvatar userImageUrl={userProfileImg} />{" "}
-          <button
-            type="button"
-            className="font-bold text-2xl my-4 flex items-center justify-center"
-            onClick={handleNicknameEdit}
-          >
-            닉네임:
-            {nicknameEditMode ? (
-              <input
-                type="text"
-                value={nickname}
-                onChange={handleNicknameChange}
-                onKeyDown={handleKeyUp}
-                placeholder=""
-                className="font-bold text-2xl my-4 ml-2 p-2 bg-transparent outline-[#EFEAE6] w-2/4"
-                autoFocus
-              />
-            ) : (
-              <>
-                <p className="mx-2 font-bold text-2xl my-4 w-fit">{nickname}</p>
-                <FontAwesomeIcon
-                  icon={faPencil}
-                  size="xs"
-                  className="hidden xs:visible hover:text-amber-800"
+          <section className="flex flex-col gap-3">
+            <ProfileAvatar userImageUrl={userProfileImg} />
+            <button
+              type="button"
+              className="font-semibold text-2xl my-4 flex items-center justify-center"
+              onClick={handleNicknameEdit}
+            >
+              닉네임:
+              {nicknameEditMode ? (
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={handleNicknameChange}
+                  onKeyDown={handleKeyUp}
+                  placeholder=""
+                  className="font-bold text-2xl my-4 ml-2 p-2 bg-transparent outline-[#EFEAE6] w-2/4"
+                  autoFocus
                 />
-              </>
-            )}
-          </button>
-          <section className="flex justify-center items-center h-full flex-col gap-3 my-5">
+              ) : (
+                <>
+                  <p className="mx-2 font-bold text-2xl my-4 w-fit">
+                    {nickname}
+                  </p>
+                  <FontAwesomeIcon
+                    icon={faPencil}
+                    size="xs"
+                    className="hidden xs:visible hover:text-amber-800"
+                  />
+                </>
+              )}
+            </button>
+          </section>
+          <section className="flex  items-center flex-col gap-3 my-5">
             <Link href="/tagList">
               <button
                 className="btn xs:w-96 w-80 xs:h-16 h-10 text-lg bg-white"
