@@ -29,35 +29,40 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   };
 
   return (
-    <article className="w-auto min-h-[25vh] bg-white text-neutral-content px-5 py-8">
-      <section className="flex items-center mb-3">
+    <article className=" relative w-auto min-h-[25vh] bg-white text-neutral-content px-5 py-3">
+      <div className="flex items-center mb-3">
         <Avatar userImageUrl={imgUrl} />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">
           {data?.memberName}
         </h3>
-      </section>
-      <section className="flex flex-wrap">{/* <Tag /> */}</section>
-      <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify my-3">
-        {isPending && (
-          <span className="loading loading-dots loading-lg text-secondary" />
-        )}
-        {isError && (
-          <span className="text-red-600 font-semibold">
-            {error instanceof AxiosError
-              ? error?.response?.data.message
-              : "게시글을 불러오는데 실패했습니다. 다시 시도해보세요."}
-          </span>
-        )}
-        {data?.content}
-      </p>
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 1.2 }}>
-        <LikeButton
-          count={likeCount}
-          onLikeClick={(e) => handleLikeClick(e)}
-          isLiked={isLiked}
-        />
-      </motion.button>
-      <div />
+      </div>
+      <div className="flex flex-wrap">{/* <Tag /> */}</div>
+      <div>
+        <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify my-3">
+          {isPending && (
+            <span className="loading loading-dots loading-lg text-secondary" />
+          )}
+          {isError && (
+            <span className="text-red-600 font-semibold">
+              {error instanceof AxiosError
+                ? error?.response?.data.message
+                : "게시글을 불러오는데 실패했습니다. 다시 시도해보세요."}
+            </span>
+          )}
+          {data?.content}
+        </p>
+        <motion.button
+          className="absolute bottom-8"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 1.2 }}
+        >
+          <LikeButton
+            count={likeCount}
+            onLikeClick={(e) => handleLikeClick(e)}
+            isLiked={isLiked}
+          />
+        </motion.button>
+      </div>
     </article>
   );
 }

@@ -58,7 +58,7 @@ const myPage = () => {
     <div className="flex flex-col items-center justify-center h-full pt-16 pb-20 gap-10">
       {isLoggedIn ? (
         <>
-          <section className="flex flex-col gap-3">
+          <section className="flex flex-col items-center gap-3">
             <ProfileAvatar userImageUrl={userProfileImg} />
             <button
               type="button"
