@@ -29,7 +29,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
   };
 
   return (
-    <article className=" relative w-auto min-h-[25vh] bg-white text-neutral-content px-5 py-3">
+    <article className=" relative w-auto min-h-[25vh] h-auto bg-white text-neutral-content px-5 py-3">
       <div className="flex items-center mb-3">
         <Avatar userImageUrl={imgUrl} />
         <h3 className="ml-2 text-lg text-[#856E69] font-bold">
@@ -38,7 +38,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
       </div>
       <div className="flex flex-wrap">{/* <Tag /> */}</div>
       <div>
-        <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify my-3">
+        <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify my-3 pb-16">
           {isPending && (
             <span className="loading loading-dots loading-lg text-secondary" />
           )}
