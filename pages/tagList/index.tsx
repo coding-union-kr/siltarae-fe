@@ -41,8 +41,8 @@ export default function TagList() {
   };
 
   return (
-    <div className="h-full p-5 ">
-      <ul className="bg-white h-auto text-2xl rounded-[10px] overflow-hidden shadow-md">
+    <div className="h-full px-10 pt-24 pb-20">
+      <ul className="bg-white h-auto text-xl rounded-[15px] overflow-hidden shadow-md">
         {isPending && (
           <span className="loading loading-dots loading-lg text-secondary" />
         )}
