@@ -76,7 +76,7 @@ function CommentInput() {
           value={content}
           onChange={handleContentChange}
           placeholder="댓글을 입력해주세요."
-          className="flex-1 ml-3 input input-bordered border-2 border-[#9CC490] focus:border-[#9CC490] rounded-2xl"
+          className="flex-1 ml-3 input input-bordered border-2 border-[#9CC490] focus:border-[#9CC490] rounded-2xl pr-11"
           onKeyUp={handleKeyUp}
         />
         <FontAwesomeIcon
