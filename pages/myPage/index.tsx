@@ -26,10 +26,10 @@ const myPage = () => {
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
   });
-  const userProfileImg = result.data?.imageUrl;
-  const userNickname = result.data?.nickname;
+  const userProfileImg = result.data?.imageUrl; // 유저 프로필 data
+  const userNickname = result.data?.nickname; // 유저 닉네임 data
 
-  // 프로필 닉네임 변경하기 훅
+  // 프로필 닉네임 수정 Hook
   const { mutate } = useMutation({
     mutationFn: () => updateProfileNickname(nickname),
   });
@@ -41,12 +41,9 @@ const myPage = () => {
   const handleNicknameEdit = () => {
     setNicknameEditMode(true);
   };
-
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
-
-  // keyup으로 통일
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setNicknameEditMode(false);
@@ -100,6 +97,7 @@ const myPage = () => {
                 태그 편집
               </button>
             </Link>
+            {/* // TODO: 오늘 해야할 부분 */}
             <button
               className="btn xs:w-96 w-80 xs:h-16 text-lg bg-white"
               type="button"
