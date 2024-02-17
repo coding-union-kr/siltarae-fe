@@ -5055,6 +5055,7 @@ __metadata:
     react-dom: "npm:^18"
     react-intersection-observer: "npm:^9.5.3"
     react-redux: "npm:^9.0.4"
+    redux-persist: "npm:^6.0.0"
     tailwindcss: "npm:^3.3.0"
     typescript: "npm:^5.3.3"
   languageName: unknown
@@ -5811,6 +5812,15 @@ __metadata:
   dependencies:
     picomatch: "npm:^2.2.1"
   checksum: 6fa848cf63d1b82ab4e985f4cf72bd55b7dcfd8e0a376905804e48c3634b7e749170940ba77b32804d5fe93b3cc521aa95a8d7e7d725f830da6d93f3669ce66b
+  languageName: node
+  linkType: hard
+
+"redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: 8242d265ab8d28bbc95cf2dc2a05b869eb67aa309b1ed08163c926f3af56dd8eb1ea62118286083461b8ef2024d3b349fd264e5a62a70eb2e74d068c832d5bf2
   languageName: node
   linkType: hard
 
