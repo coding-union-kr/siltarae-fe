@@ -62,7 +62,7 @@ function Comment() {
             <h3 className="text-lg text-[#856E69] font-bold mb-2">
               {comment.memberName}
             </h3>
-            <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify max-w-[500px] mb-1 mr-12">
+            <p className="text-base text-[#5C4F4D] leading-normal text-justify max-w-[500px] mb-1 mr-12">
               {comment.commentContent}
             </p>
           </div>
