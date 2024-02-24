@@ -37,13 +37,4 @@ export async function updateProfileNickname(nickname: string) {
   }
 }
 
-// 계정 삭제
-export async function deleteAccount() {
-  try {
-    const response = await api.delete("/member");
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+// TODO : 계정 탈퇴(구현 예정)
