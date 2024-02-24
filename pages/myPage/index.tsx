@@ -1,23 +1,24 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { getUserProfile, updateProfileNickname } from "@/api/userApi";
-import { logoutApi } from "@/api/authApi";
-import ProfileAvatar from "@/components/ProfileAvatar";
-import SocialLoginModal from "@/components/SocialLoginModal";
-import { RootState } from "@/store/store";
+
 import {
   faArrowRightFromBracket,
   faPencil,
   faTag,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
+import { getUserProfile, updateProfileNickname } from "@/api/userApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SocialLoginModal from "@/components/SocialLoginModal";
+import ProfileAvatar from "@/components/ProfileAvatar";
 import React, { useEffect, useState } from "react";
+import { logoutApi } from "@/api/authApi";
+import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import setCookie from "@/util/cookie";
+import Link from "next/link";
 
 const myPage = () => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const myPage = () => {
   const userNickname = userInfo.data?.nickname;
 
   // 프로필 닉네임 변경하기 훅
-  const { mutate } = useMutation({
+  const { mutate: profileMutate } = useMutation({
     mutationFn: () => updateProfileNickname(nickname),
   });
   // 로그아웃 mutation
@@ -64,7 +65,7 @@ const myPage = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setNicknameEditMode(false);
-      mutate();
+      profileMutate();
     }
   };
   const onClickLogout = () => {
