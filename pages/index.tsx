@@ -55,34 +55,38 @@ const mistakeFeed = () => {
 
   const { ref, inView } = useInView();
   const {
-    data,
+    data, // 요청 데이터
     isPending,
     isError,
-    fetchNextPage,
-    isFetchingNextPage,
-    hasNextPage,
-    refetch,
+    isFetchingNextPage, // 다음 페이지를 가져오는 중
+    fetchNextPage, // 다음 페이지를 불러오는 실행 함수
   } = useInfiniteQuery({
     queryKey: ["posts", selectSort],
-    queryFn: async ({ pageParam }) => fetchFeedPosts(4, pageParam, selectSort),
+    queryFn: ({ pageParam }) => fetchFeedPosts(4, pageParam, selectSort),
     initialPageParam: 0,
+
+    // getNextPageParam에서 리턴값은 pageParam로 들어간다.
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
-      return nextPage;
+      const nextPage = allPages.length;
+      return lastPage.length === 0 ? undefined : nextPage;
     },
   });
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (inView) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage, refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
 
   return (
     <div className="flex justify-center items-center flex-col my-4 mt-16 mb-20 relative">
+      {/* 로그인 모달 창 */}
       {showSocialLoginModal ? (
         <SocialLoginModal toggleModal={toggleSocialLoginModal} />
       ) : null}
+
+      {/* 최신순, 인기순 버튼 */}
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
           sortType={SORT_RECENT}
