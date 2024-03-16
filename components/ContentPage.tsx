@@ -38,7 +38,7 @@ function ContentPage({ data, isPending, isError, error }: ContentPageProps) {
       </div>
       <div className="flex flex-wrap">{/* <Tag /> */}</div>
       <div>
-        <p className="text-base text-[#5C4F4D] leading-normal break-keep text-justify my-3 pb-16">
+        <p className="text-base text-[#5C4F4D] leading-relaxed text-justify my-3 pb-16">
           {isPending && (
             <span className="loading loading-dots loading-lg text-secondary" />
           )}

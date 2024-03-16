@@ -1,37 +1,60 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { getUserProfile, updateProfileNickname } from "@/api/userApi";
-import ProfileAvatar from "@/components/ProfileAvatar";
-import SocialLoginModal from "@/components/SocialLoginModal";
-import { RootState } from "@/store/store";
+
 import {
   faArrowRightFromBracket,
   faPencil,
   faTag,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserProfile, updateProfileNickname } from "@/api/userApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import Link from "next/link";
+import SocialLoginModal from "@/components/SocialLoginModal";
+import ProfileAvatar from "@/components/ProfileAvatar";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { logoutApi } from "@/api/authApi";
+import { RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import setCookie from "@/util/cookie";
+import Link from "next/link";
+import { logOut } from "@/features/auth/authReducer";
 
 const myPage = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState<string>("비어 있음");
   const [nicknameEditMode, setNicknameEditMode] = useState<boolean>(false);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   // 유저 프로필 사진, 닉네임 가져오기
-  const result = useQuery({
+  // TODO: isLoggedIn이 아닐때는 불러오지 않도록 해야한다.
+  const userInfo = useQuery({
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
   });
-  const userProfileImg = result.data?.imageUrl; // 유저 프로필 data
-  const userNickname = result.data?.nickname; // 유저 닉네임 data
+  
+  const userProfileImg = userInfo.data?.imageUrl; // 유저 프로필 data
+  const userNickname = userInfo.data?.nickname; // 유저 닉네임 data
 
-  // 프로필 닉네임 수정 Hook
-  const { mutate } = useMutation({
+  // 프로필 닉네임 변경하기 훅
+  const { mutate: profileMutate } = useMutation({
     mutationFn: () => updateProfileNickname(nickname),
+  });
+  // 로그아웃 mutation
+  const { mutate: logoutMutate } = useMutation({
+    mutationFn: () => logoutApi(),
+    onSuccess: () => {
+      localStorage.clear();
+      setCookie("accessToken", "", 0);
+      queryClient.invalidateQueries();
+      dispatch(logOut());
+      // eslint-disable-next-line no-alert
+      alert("로그아웃 되었습니다.");
+      router.push("/");
+    },
   });
 
   useEffect(() => {
@@ -47,8 +70,11 @@ const myPage = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       setNicknameEditMode(false);
-      mutate();
+      profileMutate();
     }
+  };
+  const onClickLogout = () => {
+    logoutMutate();
   };
 
   return (
@@ -102,7 +128,7 @@ const myPage = () => {
               className="btn xs:w-96 w-80 xs:h-16 text-lg bg-white"
               type="button"
               // eslint-disable-next-line no-alert
-              onClick={() => alert("추가 예정입니다 🥹")}
+              onClick={onClickLogout}
             >
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               로그아웃

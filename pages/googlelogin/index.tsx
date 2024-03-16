@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { loginWithGoogle } from "@/api/authApi";
-import router from "next/router";
-import axiosInstance from "@/api/api";
-import { useDispatch } from "react-redux";
 import { logIn } from "@/features/auth/authReducer";
+import { loginWithGoogle } from "@/api/authApi";
+import { useDispatch } from "react-redux";
+import axiosInstance from "@/api/api";
+import setCookie from "@/util/cookie";
+import router from "next/router";
 
 export default function GoogleLoading() {
   const dispatch = useDispatch();
@@ -18,11 +19,9 @@ export default function GoogleLoading() {
     },
     onSuccess: (data) => {
       const { accessToken } = data;
-      const expiryDays = 1;
-      const date = new Date();
-      date.setTime(date.getTime() + expiryDays * 24 * 60 * 60 * 1000);
-      const expires = `expires=${date.toUTCString()}`;
-      document.cookie = `accessToken=${accessToken};${expires};path=/`;
+      // 쿠키 생성 후 accessToken이라는 이름으로 저장
+      setCookie("access-token", accessToken, 1);
+      // 이부분은 좀 더 공부하기
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       dispatch(logIn());
       router.push("/");
@@ -31,11 +30,12 @@ export default function GoogleLoading() {
 
   useEffect(() => {
     mutate();
-  }, [mutate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="flex justify-center h-screen">
-      <div className="mt-32 text-xl font-bold italic text-center">
+    <div className="flex justify-center h-screen items-center">
+      <div className="mt-32 text-xl font-semibold text-center animate-pulse">
         {isPending && <p>Google Login...중</p>}
         {isError && (
           <p>

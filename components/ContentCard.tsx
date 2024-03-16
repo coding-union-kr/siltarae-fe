@@ -76,7 +76,7 @@ function ContentCard({
             {tags?.map((tag) => <Tag key={tag?.id} name={tag.name} />)}
           </div>
         )}
-        <p className="text-sm xs:text-base text-[#5C4F4D] leading-normal break-keep">
+        <p className="text-sm xs:text-base text-[#5C4F4D] leading-normal break-words">
           {content}
         </p>
         <section className="flex items-center justify-between text-sm xs:text-base mt-3 text-slate-400">

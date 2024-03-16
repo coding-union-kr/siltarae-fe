@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from "react";
+import RegisterPostModal from "@/components/RegisterPostModal";
+import SocialLoginModal from "@/components/SocialLoginModal";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 import AddPostButton from "@/components/AddPostButton";
 import ContentCard from "@/components/ContentCard";
-import RegisterPostModal from "@/components/RegisterPostModal";
+import { fetchFeedPosts } from "@/api/mistakeApi";
 import SortButton from "@/components/SortButton";
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect, useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchFeedPosts } from "@/api/mistakeApi";
-import { AxiosError } from "axios";
-import SocialLoginModal from "@/components/SocialLoginModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useInView } from "react-intersection-observer";
+import { AxiosError } from "axios";
 import error from "next/error";
 
 const SORT_POPULAR = "POPULAR";
@@ -55,20 +55,20 @@ const mistakeFeed = () => {
 
   const { ref, inView } = useInView();
   const {
-    data,
+    data, // 요청 데이터
     isPending,
     isError,
-    fetchNextPage,
-    isFetchingNextPage,
+    isFetchingNextPage, // 다음 페이지를 가져오는 중
     hasNextPage,
-    refetch,
+    fetchNextPage, // 다음 페이지를 불러오는 실행 함수
   } = useInfiniteQuery({
     queryKey: ["posts", selectSort],
-    queryFn: async ({ pageParam }) => fetchFeedPosts(4, pageParam, selectSort),
+    queryFn: ({ pageParam }) => fetchFeedPosts(4, pageParam, selectSort),
     initialPageParam: 0,
+    // getNextPageParam에서 리턴값은 "무한스크롤 실행함수의 pageParam"로 들어간다.
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
-      return nextPage;
+      const pageParamData = lastPage.length === 4 ? allPages.length : undefined;
+      return pageParamData;
     },
   });
 
@@ -76,13 +76,17 @@ const mistakeFeed = () => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage, refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, hasNextPage]);
 
   return (
     <div className="flex justify-center items-center flex-col my-4 mt-16 mb-20 relative">
+      {/* 로그인 모달 창 */}
       {showSocialLoginModal ? (
         <SocialLoginModal toggleModal={toggleSocialLoginModal} />
       ) : null}
+
+      {/* 최신순, 인기순 버튼 */}
       <div className="flex justify-end items-center w-full mt-2 mr-16 ">
         <SortButton
           sortType={SORT_RECENT}
@@ -106,8 +110,9 @@ const mistakeFeed = () => {
         </span>
       )}
       {data?.pages.map((posts: Post[]) =>
-        posts.map((post: Post, index) =>
-          posts.length === index + 1 ? (
+        posts.map(
+          (post: Post) => (
+            // posts.length === index + 1 ? (
             <ContentCard
               innerRef={ref}
               key={post.id}
@@ -119,24 +124,27 @@ const mistakeFeed = () => {
               like={post.likeCount}
               onClick={(event) => toggleSocialLoginModal(event)}
             />
-          ) : (
-            <ContentCard
-              key={post.id}
-              id={post.id}
-              author={post.memberName}
-              content={post.content}
-              comments={post.commentCount}
-              imageUrl={post.memberImageUrl}
-              like={post.likeCount}
-              onClick={(event) => toggleSocialLoginModal(event)}
-            />
           ),
+          // ) : (
+          //   <ContentCard
+          //     key={post.id}
+          //     id={post.id}
+          //     author={post.memberName}
+          //     content={post.content}
+          //     comments={post.commentCount}
+          //     imageUrl={post.memberImageUrl}
+          //     like={post.likeCount}
+          //     onClick={(event) => toggleSocialLoginModal(event)}
+          //   />
+          // ),
         ),
       )}
       {isPending ||
         (isFetchingNextPage && (
           <span className="loading loading-dots loading-lg text-secondary" />
         ))}
+
+      {/* Feed 추가 버튼 */}
       <AddPostButton toggleModal={toggleRegisterModal} />
       <AnimatePresence>
         {showRegisterModal ? (
