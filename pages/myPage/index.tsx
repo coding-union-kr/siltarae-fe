@@ -35,8 +35,9 @@ const myPage = () => {
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
   });
-  const userProfileImg = userInfo.data?.imageUrl;
-  const userNickname = userInfo.data?.nickname;
+  
+  const userProfileImg = userInfo.data?.imageUrl; // 유저 프로필 data
+  const userNickname = userInfo.data?.nickname; // 유저 닉네임 data
 
   // 프로필 닉네임 변경하기 훅
   const { mutate: profileMutate } = useMutation({
@@ -122,6 +123,7 @@ const myPage = () => {
                 태그 편집
               </button>
             </Link>
+            {/* // TODO: 오늘 해야할 부분 */}
             <button
               className="btn xs:w-96 w-80 xs:h-16 text-lg bg-white"
               type="button"

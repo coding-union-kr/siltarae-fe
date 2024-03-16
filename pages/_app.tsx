@@ -6,7 +6,10 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
+import { persistStore } from "redux-persist";
+import store from "@/store/store";
+
+export const persistor = persistStore(store);
 
 config.autoAddCss = false;
 
