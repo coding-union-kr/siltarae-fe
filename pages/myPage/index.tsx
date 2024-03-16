@@ -15,19 +15,22 @@ import ProfileAvatar from "@/components/ProfileAvatar";
 import React, { useEffect, useState } from "react";
 import { logoutApi } from "@/api/authApi";
 import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import setCookie from "@/util/cookie";
 import Link from "next/link";
+import { logOut } from "@/features/auth/authReducer";
 
 const myPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState<string>("비어 있음");
   const [nicknameEditMode, setNicknameEditMode] = useState<boolean>(false);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   // 유저 프로필 사진, 닉네임 가져오기
+  // TODO: isLoggedIn이 아닐때는 불러오지 않도록 해야한다.
   const userInfo = useQuery({
     queryKey: ["user_Info"],
     queryFn: () => getUserProfile(),
@@ -46,6 +49,7 @@ const myPage = () => {
       localStorage.clear();
       setCookie("accessToken", "", 0);
       queryClient.invalidateQueries();
+      dispatch(logOut());
       // eslint-disable-next-line no-alert
       alert("로그아웃 되었습니다.");
       router.push("/");
